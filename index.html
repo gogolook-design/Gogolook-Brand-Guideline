@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gogolook — Brand Design Guidelines V1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Primary */
+  --gl-blue:     #0058EA;
+  --gl-blue-01:  #4082EF;
+  --gl-blue-02:  #7EABF4;
+  --gl-blue-03:  #BFD5FA;
+
+  --gl-green:    #01D3B8;
+  --gl-green-01: #3FDECA;
+  --gl-green-02: #80E9DB;
+  --gl-green-03: #BEF4ED;
+
+  --gl-genuine:    #008CF4;
+  --gl-genuine-01: #41A9F6;
+  --gl-genuine-02: #7FC5F9;
+  --gl-genuine-03: #BEE2FC;
+
+  --gl-horizon:    #00C0FE;
+  --gl-horizon-01: #40D0FE;
+  --gl-horizon-02: #7EDFFE;
+  --gl-horizon-03: #BFEFFF;
+
+  /* Secondary */
+  --gl-shadow:    #0F2647;
+  --gl-shadow-01: #4B5C75;
+  --gl-shadow-02: #8692A1;
+  --gl-shadow-03: #C2C8D1;
+
+  --gl-intel:    #D0E3FC;
+  --gl-intel-01: #DBEAFD;
+  --gl-intel-02: #E7F1FD;
+  --gl-intel-03: #F3F8FE;
+
+  /* Neutral */
+  --white: #FFFFFF;
+  --black: #000000;
+  --gray-50:  #F8F9FA;
+  --gray-100: #F1F3F5;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-500: #6B7280;
+  --gray-700: #374151;
+  --gray-900: #111827;
+
+  /* Fonts */
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Gradient */
+  --gradient-brand: linear-gradient(135deg, var(--gl-shadow) 0%, var(--gl-blue) 40%, var(--gl-horizon) 75%, var(--gl-green) 100%);
+  --gradient-hero:  linear-gradient(135deg, var(--gl-blue) 0%, var(--gl-genuine) 50%, var(--gl-horizon) 100%);
+
+  /* Sizing */
+  --sidebar-w: 280px;
+  --content-max: 960px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--gray-900);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ============================================================
+   PASSWORD GATE
+   ============================================================ */
+.login-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--gradient-brand);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.login-gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+body.locked { overflow: hidden; }
+
+.login-inner { text-align: center; color: var(--white); }
+.login-logo {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 800;
+  letter-spacing: -0.02em; margin-bottom: 4px;
+}
+.login-sub {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; opacity: 0.65; margin-bottom: 36px;
+}
+.login-box { width: 320px; margin: 0 auto; }
+.login-input {
+  width: 100%; padding: 14px 20px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 10px; color: var(--white);
+  font-family: var(--font-body); font-size: 14px;
+  outline: none; margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.login-input:focus { border-color: rgba(255,255,255,0.6); }
+.login-input::placeholder { color: rgba(255,255,255,0.5); }
+.login-btn {
+  width: 100%; padding: 14px;
+  background: var(--white); color: var(--gl-shadow);
+  border: none; border-radius: 10px;
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+.login-btn:hover { background: var(--gray-100); transform: scale(1.02); }
+.login-error {
+  font-size: 13px; font-weight: 600; color: #FF6B6B;
+  height: 18px; margin-top: 8px;
+}
+
+/* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+.shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  position: sticky; top: 0; height: 100vh;
+  background: var(--white);
+  color: var(--gray-900);
+  padding: 36px 28px;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  z-index: 100;
+  border-right: 1px solid var(--gray-200);
+}
+.sb-logo {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--gl-blue);
+}
+.sb-sub {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--gray-500);
+  margin-bottom: 24px;
+}
+.sb-label {
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gray-500);
+  font-weight: 700; margin-bottom: 8px;
+}
+.sb-edition { font-size: 12px; font-weight: 500; color: var(--gray-700); margin-bottom: 4px; }
+.sb-divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
+
+.toc { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 500; }
+.toc a {
+  display: grid; grid-template-columns: 30px 1fr;
+  padding: 10px 12px; border-radius: 8px;
+  color: var(--gray-700); text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.toc a:hover { background: var(--gl-intel-03); color: var(--gl-blue); }
+.toc a.active { background: var(--gl-intel-02); color: var(--gl-blue); font-weight: 700; }
+.toc-num { color: var(--gray-500); font-family: var(--font-display); font-size: 12px; font-weight: 600; }
+.toc-skill { color: var(--gl-blue); font-weight: 600; }
+
+.sb-download {
+  margin-top: 24px;
+  display: inline-flex; width: 100%;
+  align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 20px;
+  background: var(--gl-blue);
+  border: none;
+  color: var(--white); border-radius: 10px;
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.sb-download:hover { background: #003CBB; transform: translateY(-1px); }
+
+.sb-footer {
+  margin-top: auto; padding-top: 20px;
+  font-size: 10px; font-weight: 500; color: var(--gray-500); letter-spacing: 0.02em; line-height: 1.6;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main {
+  width: 100%;
+  max-width: calc(var(--content-max) + 200px);
+  margin: 0 auto;
+  padding: 56px 96px 120px;
+}
+
+/* ============================================================
+   SECTION TEMPLATE
+   ============================================================ */
+.sec {
+  scroll-margin-top: 24px;
+  padding-bottom: 96px; margin-bottom: 96px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.sec:last-of-type { border-bottom: none; }
+
+/* Chapter hero */
+.sec-hero {
+  position: relative;
+  padding: 56px 48px 48px;
+  margin: 0 -24px 56px;
+  border-radius: 20px;
+  overflow: hidden;
+  color: var(--white);
+}
+.sec-hero::before {
+  content: attr(data-num);
+  position: absolute; top: 16px; right: 40px;
+  font-family: var(--font-display);
+  font-size: 200px; font-weight: 800;
+  line-height: 0.85; letter-spacing: -0.04em;
+  opacity: 0.12; pointer-events: none; user-select: none;
+}
+.sec-hero > * { position: relative; z-index: 1; }
+
+/* Hero color rotation */
+#s01 .sec-hero { background: var(--gradient-hero); }
+#s02 .sec-hero { background: linear-gradient(135deg, var(--gl-blue) 0%, #003CBB 100%); }
+#s03 .sec-hero { background: linear-gradient(135deg, var(--gl-genuine) 0%, var(--gl-horizon) 100%); }
+#s04 .sec-hero { background: linear-gradient(135deg, var(--gl-shadow) 0%, var(--gl-blue) 100%); }
+#s05 .sec-hero { background: linear-gradient(135deg, var(--gl-blue) 0%, var(--gl-green) 100%); }
+#s06 .sec-hero { background: linear-gradient(135deg, var(--gl-shadow) 0%, var(--gl-genuine) 100%); }
+#s07 .sec-hero { background: var(--gradient-brand); }
+
+.sec-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  opacity: 0.75; margin-bottom: 10px;
+}
+.sec-title {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 800;
+  letter-spacing: -0.01em; margin-bottom: 14px;
+}
+.sec-lede {
+  font-size: 15px; line-height: 1.7;
+  opacity: 0.9; max-width: 48ch;
+}
+
+/* Sub-section headings */
+.h3 {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 700;
+  line-height: 1.4; color: var(--gray-900);
+  margin: 48px 0 18px;
+  padding-top: 32px;
+  border-top: 1px solid var(--gray-200);
+  display: flex; align-items: center; gap: 10px;
+}
+.h3::before {
+  content: '';
+  width: 4px; height: 20px;
+  background: var(--gl-green);
+  border-radius: 4px; flex-shrink: 0;
+}
+.sec .h3:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+
+.h4 {
+  font-family: var(--font-display);
+  font-size: 15px; font-weight: 700;
+  color: var(--gray-700); margin: 28px 0 10px;
+}
+
+p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500; }
+
+/* ============================================================
+   GRIDS & CARDS
+   ============================================================ */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px; padding: 20px;
+}
+.card-img {
+  border-radius: 10px; overflow: hidden;
+  margin-bottom: 14px; background: var(--gray-100);
+}
+.card-img img { width: 100%; display: block; }
+.card-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gl-blue); margin-bottom: 8px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 700;
+  color: var(--gray-900); margin-bottom: 8px;
+}
+.card-body { font-size: 14px; font-weight: 500; color: var(--gray-700); line-height: 1.65; }
+
+/* Swatch card */
+.swatch {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px; overflow: hidden;
+}
+.swatch-color { height: 72px; }
+.swatch-info { padding: 14px 16px; }
+.swatch-name {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 700; color: var(--gray-900);
+}
+.swatch-hex { font-size: 12px; font-weight: 600; color: var(--gray-500); font-family: var(--font-display); }
+.swatch-usage { font-size: 11px; font-weight: 500; color: var(--gray-700); margin-top: 4px; line-height: 1.5; }
+
+/* Image grid */
+.img-grid { display: grid; gap: 12px; }
+.img-grid img { border-radius: 12px; width: 100%; object-fit: cover; }
+.img-grid.g2 { grid-template-columns: repeat(2, 1fr); }
+.img-grid.g3 { grid-template-columns: repeat(3, 1fr); }
+.img-grid.g4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Don't example */
+.dont-example { position: relative; }
+
+/* Quote */
+.quote {
+  background: var(--gl-intel-03);
+  border-left: 4px solid var(--gl-blue);
+  padding: 24px 28px; border-radius: 0 12px 12px 0;
+  margin: 24px 0; font-size: 15px; font-weight: 500; line-height: 1.7;
+  color: var(--gray-700);
+}
+
+/* Table */
+.spec-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; margin: 16px 0 24px;
+}
+.spec-table th {
+  text-align: left; padding: 12px 16px;
+  background: var(--gray-100); font-weight: 700;
+  font-size: 12px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--gray-700);
+  border-bottom: 2px solid var(--gray-200);
+}
+.spec-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700); font-weight: 500; font-size: 14px;
+}
+.spec-table code {
+  background: var(--gray-100); padding: 3px 8px;
+  border-radius: 5px; font-size: 13px; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* Download cards */
+.dl-card {
+  display: flex; flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px; padding: 24px;
+  text-decoration: none; color: inherit;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.dl-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gl-blue);
+  box-shadow: 0 12px 32px rgba(0,88,234,0.1);
+}
+.dl-badge {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.dl-name {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 700;
+  color: var(--gray-900); margin-bottom: 10px;
+}
+.dl-desc { font-size: 14px; font-weight: 500; color: var(--gray-700); line-height: 1.65; margin-bottom: 20px; flex: 1; }
+.dl-btn {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px;
+  background: var(--gl-blue); color: var(--white);
+  border-radius: 10px; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.04em; transition: background 0.2s;
+}
+.dl-card:hover .dl-btn { background: #003CBB; }
+
+/* Proportion bar */
+.prop-bar { display: flex; border-radius: 10px; overflow: hidden; height: 40px; margin: 16px 0; }
+.prop-bar div { display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 12px; font-weight: 700; }
+
+/* Do / Don't labels */
+.do-label, .dont-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 10px; padding: 6px 12px;
+  border-radius: 8px;
+}
+.do-label { background: #E6F9F2; color: #059669; }
+.dont-label { background: #FEE2E2; color: #DC2626; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; left: -300px; width: 280px;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 32px rgba(0,0,0,0.08);
+    border-right: 1px solid var(--gray-200);
+  }
+  .sidebar.open { left: 0; }
+  .mobile-toggle {
+    display: flex; position: fixed; top: 16px; left: 16px; z-index: 200;
+    width: 44px; height: 44px;
+    background: var(--white); color: var(--gl-blue);
+    border: 1px solid var(--gray-200); border-radius: 10px;
+    align-items: center; justify-content: center;
+    font-size: 20px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .main { padding: 64px 24px 64px; }
+  .sec-hero { margin: 0 -8px 48px; padding: 40px 28px 32px; }
+  .sec-title { font-size: 28px; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1025px) {
+  .mobile-toggle { display: none; }
+  .mobile-overlay { display: none !important; }
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ============ PASSWORD GATE ============ -->
+<div class="login-gate" id="loginGate">
+  <div class="login-inner">
+    <div class="login-logo">Gogolook</div>
+    <div class="login-sub">Brand Design Guidelines</div>
+    <div class="login-box">
+      <input type="password" class="login-input" id="loginInput" placeholder="Enter password" autocomplete="off" autofocus>
+      <button class="login-btn" id="loginBtn">Enter</button>
+      <div class="login-error" id="loginError"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MOBILE TOGGLE ============ -->
+<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">&#9776;</button>
+<div class="mobile-overlay" id="mobileOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:99;"></div>
+
+<!-- ============ SHELL ============ -->
+<div class="shell">
+
+<!-- ============ SIDEBAR ============ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sb-logo">Gogolook</div>
+  <div class="sb-sub">Brand Design Guidelines</div>
+
+  <div class="sb-label">Edition</div>
+  <div class="sb-edition">V1 &middot; July 2024</div>
+  <div class="sb-divider"></div>
+
+  <div class="sb-label">Contents</div>
+  <div class="toc" id="toc">
+    <a href="#s01"><span class="toc-num">01</span><span>Brand Core</span></a>
+    <a href="#s02"><span class="toc-num">02</span><span>Logo</span></a>
+    <a href="#s03"><span class="toc-num">03</span><span>Colors</span></a>
+    <a href="#s04"><span class="toc-num">04</span><span>Typography</span></a>
+    <a href="#s05"><span class="toc-num">05</span><span>Layout</span></a>
+    <a href="#s06"><span class="toc-num">06</span><span>Photography</span></a>
+    <a href="#s07"><span class="toc-num">07</span><span class="toc-skill">AI Skills &darr;</span></a>
+  </div>
+
+  <a class="sb-download" href="skills/gogolook-brand-skill.md" download>&#8595; BRAND SKILL</a>
+
+  <div class="sb-footer">
+    CONFIDENTIAL &copy; 2026 Gogolook Co., Ltd.<br>All Rights Reserved.
+  </div>
+</nav>
+
+<!-- ============ MAIN ============ -->
+<main class="main">
+
+<!-- ======== S01 — BRAND CORE ======== -->
+<section class="sec" id="s01">
+  <div class="sec-hero" data-num="01">
+    <div class="sec-eyebrow">Chapter 01</div>
+    <div class="sec-title">Brand Core</div>
+    <div class="sec-lede">Gogolook is a TrustTech company founded in 2012, committed to building a fraud-free digital environment and a reliable communication network.</div>
+  </div>
+
+  <div class="h3">Brand Identity</div>
+  <p>The Gogolook identity is a system of visual and verbal elements working together to create a consistent, trustworthy experience across all touchpoints. Every design decision reinforces reliability, security, and integrity.</p>
+
+  <div class="grid-3" style="margin-top:24px;">
+    <div class="card">
+      <div class="card-label">Pillar</div>
+      <div class="card-title">Trust</div>
+      <div class="card-body">Every design decision reinforces reliability, security, and integrity.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Pillar</div>
+      <div class="card-title">Innovation</div>
+      <div class="card-body">Modern, technology-forward aesthetics signal cutting-edge capability.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Pillar</div>
+      <div class="card-title">Community</div>
+      <div class="card-body">Humanistic, approachable design reflects Gogolook's commitment to people.</div>
+    </div>
+  </div>
+
+  <div class="h3">Brand Principles</div>
+  <p>Our direction principles guide every design decision and communication:</p>
+  <div class="grid-3" style="margin-top:16px;">
+    <div class="card" style="border-left:3px solid var(--gl-blue);">
+      <div class="card-title">Cool &amp; Confident</div>
+      <div class="card-body">Design should feel assured and professional without being cold or corporate.</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--gl-green);">
+      <div class="card-title">Authentic</div>
+      <div class="card-body">Real, genuine, and transparent in every visual and verbal expression.</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--gl-horizon);">
+      <div class="card-title">Human-Centered</div>
+      <div class="card-body">Design creates a trustworthy and empowering experience for real people.</div>
+    </div>
+  </div>
+
+  <div class="h3">Voice &amp; Tone</div>
+  <p>Gogolook's voice is <strong>clear</strong>, <strong>relatable</strong>, and <strong>empowering</strong>. Tone should feel calm, supportive, and never judgmental. Use simple language, focus on one clear action, and avoid technical jargon and fear-based messaging.</p>
+
+  <div class="quote">
+    Frame around <strong>confidence and community</strong> &mdash; never around fear. Help people act confidently. One action per message, human verbs, zero jargon.
+  </div>
+
+  <table class="spec-table">
+    <thead><tr><th>Channel</th><th>Constraint</th></tr></thead>
+    <tbody>
+      <tr><td>Push notification title</td><td>&le; 30 characters</td></tr>
+      <tr><td>Push notification body</td><td>&le; 140 characters, 1 emoji max</td></tr>
+      <tr><td>Social media headers</td><td>&le; 8 words</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ======== S02 — LOGO ======== -->
+<section class="sec" id="s02">
+  <div class="sec-hero" data-num="02">
+    <div class="sec-eyebrow">Chapter 02</div>
+    <div class="sec-title">Logo</div>
+    <div class="sec-lede">The Gogolook logo embraces a humanistic and approachable design with a custom rounded sans serif typeface, reflecting trust within a robust community.</div>
+  </div>
+
+  <div class="h3">Evolution</div>
+  <p>Since 2012, the Gogolook logo has evolved to reflect the company's growth from a Taipei startup to a global TrustTech leader. Each iteration strengthened trust and modernity.</p>
+
+  <div class="grid-4" style="margin-top:20px;">
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/logo/logo-2012.png" alt="Gogolook logo 2012"></div>
+      <div class="card-title" style="color:var(--gl-blue);">2012</div>
+      <div class="card-body">Vibrant orange, warm and energetic innovation.</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/logo/logo-2014.png" alt="Gogolook logo 2014"></div>
+      <div class="card-title" style="color:var(--gl-blue);">2014</div>
+      <div class="card-body">Professional black, precision and reliability.</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/logo/logo-2022.png" alt="Gogolook logo 2022"></div>
+      <div class="card-title" style="color:var(--gl-blue);">2022</div>
+      <div class="card-body">Bold blue, strengthened global identity.</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/logo/logo-2024.png" alt="Gogolook logo 2024"></div>
+      <div class="card-title" style="color:var(--gl-blue);">2024</div>
+      <div class="card-body">Modern rounded sans serif, trust and connectivity.</div>
+    </div>
+  </div>
+
+  <div class="h3">Wordmark</div>
+  <p>The wordmark has a single approved form and must always be displayed unaltered. There is no standalone icon &mdash; the wordmark is the logo. The bright blue represents cutting-edge technology, innovation, and modernity.</p>
+
+  <div class="h3">Color Usage</div>
+  <p>The wordmark should most often appear in Gogolook Blue and white only.</p>
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-label">Preferred</div>
+      <div class="card-img"><img src="assets/logo/usage-preferred-blue.png" alt="Gogolook Blue on white, White on blue"></div>
+      <div class="card-body">Gogolook Blue on white, or white on Gogolook Blue. Use these in most contexts.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Optional &middot; Monochrome</div>
+      <div class="card-img"><img src="assets/logo/usage-preferred-white.png" alt="Black and white monochrome"></div>
+      <div class="card-body">Black or white monochrome. For single-color print, embossed, frosted, or etched finishes.</div>
+    </div>
+  </div>
+
+  <div class="h3">Clear Space &amp; Minimum Size</div>
+  <p>Clear space should be the height of the "G" in the wordmark on all four sides. No other elements should intrude on this zone.</p>
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-label">Clear Space</div>
+      <div class="card-img"><img src="assets/logo/usage-mono-black.png" alt="Logo clear space diagram"></div>
+      <div class="card-body">Maintain clear space equal to the height of the "G" on all sides.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Minimum Size</div>
+      <div class="card-img"><img src="assets/logo/usage-mono-white.png" alt="Logo minimum size"></div>
+      <div class="card-body">Web: 100px wide / 27.2px tall. Print: 0.8 in (20mm) wide / 1.3 in (35.2mm) tall.</div>
+    </div>
+  </div>
+
+  <div class="h3">Incorrect Usage</div>
+  <p>It is important that the appearance of the logo remains consistent. Never alter the wordmark in any of these ways:</p>
+  <div class="grid-3" style="margin-top:16px;">
+    <div class="card"><div class="card-img dont-example"><img src="assets/logo/incorrect-1.png" alt="Don't: disproportionate scaling"></div><div class="card-body">Do not scale disproportionately.</div></div>
+    <div class="card"><div class="card-img dont-example"><img src="assets/logo/incorrect-2.png" alt="Don't: wrong colors"></div><div class="card-body">Do not use colors outside the core palette.</div></div>
+    <div class="card"><div class="card-img dont-example"><img src="assets/logo/incorrect-3.png" alt="Don't: reconstruct"></div><div class="card-body">Do not reconstruct or distort the logo.</div></div>
+    <div class="card"><div class="card-img dont-example"><img src="assets/logo/incorrect-4.png" alt="Don't: drop shadow"></div><div class="card-body">Do not add a drop shadow.</div></div>
+    <div class="card"><div class="card-img dont-example"><img src="assets/logo/incorrect-5.png" alt="Don't: pattern"></div><div class="card-body">Do not tile the wordmark into a pattern.</div></div>
+    <div class="card"><div class="card-img dont-example"><img src="assets/logo/incorrect-6.png" alt="Don't: gradient"></div><div class="card-body">Do not add gradients to the logo.</div></div>
+  </div>
+
+  <div class="h3">Co-Branding</div>
+  <p>When Gogolook partners with other brands, the Gogolook logo is positioned on the left, followed by the partner logo on the right, separated by a vertical divider. Gap between logos equals the width of the "G" in the Gogolook wordmark.</p>
+</section>
+
+<!-- ======== S03 — COLORS ======== -->
+<section class="sec" id="s03">
+  <div class="sec-hero" data-num="03">
+    <div class="sec-eyebrow">Chapter 03</div>
+    <div class="sec-title">Colors</div>
+    <div class="sec-lede">Gogolook's color system is built around four primary families and two supporting secondary palettes, each conveying a distinct brand attribute.</div>
+  </div>
+
+  <div class="h3">Primary Colors</div>
+
+  <div class="h4">Gogolook Blue</div>
+  <p>Symbolizes reliability, security, and trust. The dominant brand color used for headlines, titles, main buttons, and main backgrounds.</p>
+  <div class="grid-4">
+    <div class="swatch"><div class="swatch-color" style="background:#0058EA;"></div><div class="swatch-info"><div class="swatch-name">Blue 00</div><div class="swatch-hex">#0058EA</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4082EF;"></div><div class="swatch-info"><div class="swatch-name">Blue 01</div><div class="swatch-hex">#4082EF</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7EABF4;"></div><div class="swatch-info"><div class="swatch-name">Blue 02</div><div class="swatch-hex">#7EABF4</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#BFD5FA;"></div><div class="swatch-info"><div class="swatch-name">Blue 03</div><div class="swatch-hex">#BFD5FA</div></div></div>
+  </div>
+
+  <div class="h4">Neo Green</div>
+  <p>Represents growth, renewal, and harmony. Used for subheadlines, calls to action, icons, graphical elements, and labels.</p>
+  <div class="grid-4">
+    <div class="swatch"><div class="swatch-color" style="background:#01D3B8;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 00</div><div class="swatch-hex">#01D3B8</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#3FDECA;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 01</div><div class="swatch-hex">#3FDECA</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#80E9DB;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 02</div><div class="swatch-hex">#80E9DB</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#BEF4ED;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 03</div><div class="swatch-hex">#BEF4ED</div></div></div>
+  </div>
+
+  <div class="h4">Genuine Blue</div>
+  <p>Conveys stability and depth. Used for body text links, labels, and accent usage supporting graphics.</p>
+  <div class="grid-4">
+    <div class="swatch"><div class="swatch-color" style="background:#008CF4;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 00</div><div class="swatch-hex">#008CF4</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#41A9F6;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 01</div><div class="swatch-hex">#41A9F6</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7FC5F9;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 02</div><div class="swatch-hex">#7FC5F9</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#BEE2FC;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 03</div><div class="swatch-hex">#BEE2FC</div></div></div>
+  </div>
+
+  <div class="h4">Clear Horizon</div>
+  <p>Evokes openness and serenity. Used for graphical elements.</p>
+  <div class="grid-4">
+    <div class="swatch"><div class="swatch-color" style="background:#00C0FE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 00</div><div class="swatch-hex">#00C0FE</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#40D0FE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 01</div><div class="swatch-hex">#40D0FE</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7EDFFE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 02</div><div class="swatch-hex">#7EDFFE</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#BFEFFF;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 03</div><div class="swatch-hex">#BFEFFF</div></div></div>
+  </div>
+
+  <div class="h3">Secondary Colors</div>
+
+  <div class="h4">Shadow Blue</div>
+  <p>Creates a striking, professional impact as a background. Conveys sophistication and depth.</p>
+  <div class="grid-4">
+    <div class="swatch"><div class="swatch-color" style="background:#0F2647;"></div><div class="swatch-info"><div class="swatch-name">Shadow Blue 00</div><div class="swatch-hex">#0F2647</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4B5C75;"></div><div class="swatch-info"><div class="swatch-name">Shadow Blue 01</div><div class="swatch-hex">#4B5C75</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#8692A1;"></div><div class="swatch-info"><div class="swatch-name">Shadow Blue 02</div><div class="swatch-hex">#8692A1</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#C2C8D1;"></div><div class="swatch-info"><div class="swatch-name">Shadow Blue 03</div><div class="swatch-hex">#C2C8D1</div></div></div>
+  </div>
+
+  <div class="h4">Intelligent Blue</div>
+  <p>Imparts a modern, fresh aesthetic as a background. Enhances clarity and delivers a light, approachable feel.</p>
+  <div class="grid-4">
+    <div class="swatch"><div class="swatch-color" style="background:#D0E3FC;"></div><div class="swatch-info"><div class="swatch-name">Intelligent Blue 00</div><div class="swatch-hex">#D0E3FC</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#DBEAFD;"></div><div class="swatch-info"><div class="swatch-name">Intelligent Blue 01</div><div class="swatch-hex">#DBEAFD</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#E7F1FD;"></div><div class="swatch-info"><div class="swatch-name">Intelligent Blue 02</div><div class="swatch-hex">#E7F1FD</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F3F8FE;"></div><div class="swatch-info"><div class="swatch-name">Intelligent Blue 03</div><div class="swatch-hex">#F3F8FE</div></div></div>
+  </div>
+
+  <div class="h3">Usage Proportions</div>
+  <p>The main color is Gogolook Blue, used around 50%. Shadow Blue and Clear Horizon provide depth and accent. Neo Green should be used sparingly.</p>
+  <div class="prop-bar">
+    <div style="width:20%;background:var(--gl-shadow);">20%</div>
+    <div style="width:50%;background:var(--gl-blue);">50%</div>
+    <div style="width:20%;background:var(--gl-horizon);">20%</div>
+    <div style="width:10%;background:var(--gl-green);">10%</div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Color</th><th>Proportion</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Gogolook Blue</td><td>~50%</td><td>Headlines, CTAs, backgrounds</td></tr>
+      <tr><td>Shadow Blue</td><td>~20%</td><td>Dark background, professional contrast</td></tr>
+      <tr><td>Clear Horizon</td><td>~20%</td><td>Secondary accent, graphic elements</td></tr>
+      <tr><td>Neo Green</td><td>~10%</td><td>Sparingly: subheadlines, icons, highlights</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Gradient</div>
+  <p>The standard gradient blends all four primary colors for a modern, forward-thinking aesthetic. Designed exclusively for digital use.</p>
+  <div style="height:80px;border-radius:14px;background:var(--gradient-brand);margin:16px 0;"></div>
+  <div class="grid-2" style="margin-top:16px;">
+    <div>
+      <div class="do-label">&#10003; Do</div>
+      <ul style="font-size:13px;color:var(--gray-700);padding-left:18px;line-height:1.8;">
+        <li>Use for digital backgrounds and UI elements</li>
+        <li>Maintain specified color proportions</li>
+        <li>Allow animated or freeform variations for digital</li>
+      </ul>
+    </div>
+    <div>
+      <div class="dont-label">&#10005; Don't</div>
+      <ul style="font-size:13px;color:var(--gray-700);padding-left:18px;line-height:1.8;">
+        <li>Never use dynamic gradients in print</li>
+        <li>Never repeat gradient as a tile or pattern</li>
+        <li>Never let gradient reduce text readability</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======== S04 — TYPOGRAPHY ======== -->
+<section class="sec" id="s04">
+  <div class="sec-hero" data-num="04">
+    <div class="sec-eyebrow">Chapter 04</div>
+    <div class="sec-title">Typography</div>
+    <div class="sec-lede">Gogolook's typefaces are humanistic, rounded, and highly legible &mdash; reflecting an innovative and modern tech identity.</div>
+  </div>
+
+  <div class="h3">Primary Typeface: Plus Jakarta Sans</div>
+  <p>Used for headlines and highlighted paragraphs only. Its modern yet timeless characters showcase Gogolook's brand personality.</p>
+  <div class="card" style="margin:16px 0;">
+    <div style="font-family:var(--font-display);font-weight:800;font-size:48px;color:var(--gl-blue);line-height:1;margin-bottom:16px;">Aa Bb Cc</div>
+    <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--gray-700);margin-bottom:8px;">abcdefghijklmnopqrstuvwxyz</div>
+    <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--gray-700);margin-bottom:8px;">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+    <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--gray-500);">1234567890!@#$%^&amp;*</div>
+  </div>
+
+  <div class="h3">Secondary Typeface: Inter</div>
+  <p>Used for body copy. Clean, highly readable design ensures clarity across digital and print contexts.</p>
+  <div class="card" style="margin:16px 0;">
+    <div style="font-family:var(--font-body);font-weight:700;font-size:20px;color:var(--gray-700);margin-bottom:8px;">abcdefghijklmnopqrstuvwxyz</div>
+    <div style="font-family:var(--font-body);font-weight:400;font-size:20px;color:var(--gray-700);margin-bottom:8px;">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+    <div style="font-family:var(--font-body);font-weight:400;font-size:20px;color:var(--gray-500);">1234567890!@#$%^&amp;*</div>
+  </div>
+
+  <div class="h3">Type Hierarchy</div>
+  <table class="spec-table">
+    <thead><tr><th>Style</th><th>Font</th><th>Weight</th><th>Size</th><th>Leading</th><th>Color</th></tr></thead>
+    <tbody>
+      <tr><td>H1</td><td>Plus Jakarta Sans</td><td>Bold</td><td>40px</td><td>100%</td><td>Gogolook Blue / Neo Green</td></tr>
+      <tr><td>H2</td><td>Plus Jakarta Sans</td><td>Bold</td><td>18px</td><td>140%</td><td>Gogolook Blue / Neo Green</td></tr>
+      <tr><td>Title</td><td>Plus Jakarta Sans</td><td>Bold</td><td>18px</td><td>140%</td><td>Black</td></tr>
+      <tr><td>Body</td><td>Inter</td><td>Regular</td><td>16px</td><td>140%</td><td>Black</td></tr>
+      <tr><td>Legal</td><td>Inter</td><td>Regular</td><td>8pt</td><td>140%</td><td>Black</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Hierarchy Example</div>
+  <div class="card" style="margin:16px 0;padding:36px;">
+    <div style="font-family:var(--font-display);font-weight:800;font-size:40px;line-height:1;color:var(--gl-blue);margin-bottom:16px;">Lorem Ipsum</div>
+    <div style="font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1.4;color:var(--gl-green);margin-bottom:16px;">Lorem ipsum dolor sit amet</div>
+    <div style="font-family:var(--font-body);font-weight:400;font-size:16px;line-height:1.4;color:var(--black);max-width:60ch;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  </div>
+
+  <div class="h3">Regional Typeface</div>
+  <p><strong>Noto Sans</strong> is used for all non-Latin scripts, ensuring consistency and readability across diverse linguistic needs: Thai, Japanese, Korean, Traditional Chinese, and Simplified Chinese.</p>
+</section>
+
+<!-- ======== S05 — LAYOUT ======== -->
+<section class="sec" id="s05">
+  <div class="sec-hero" data-num="05">
+    <div class="sec-eyebrow">Chapter 05</div>
+    <div class="sec-title">Layout</div>
+    <div class="sec-lede">A consistent 12-column grid and defined margins ensure order, hierarchy, and breathing room across all formats.</div>
+  </div>
+
+  <div class="h3">12-Column Grid</div>
+  <p>All layout tasks use a 12-column grid. The grid allows a page to be divided evenly into units of 1, 2, 3, 4, 6, or 12. Use as few columns as possible to avoid overly complex layouts.</p>
+  <div class="grid-3" style="margin-top:16px;">
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/layout/grid-2col.png" alt="2-column grid"></div>
+      <div class="card-title">2 Column</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/layout/grid-3col.png" alt="3-column grid"></div>
+      <div class="card-title">3 Column</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-img"><img src="assets/layout/grid-6col.png" alt="6-column grid"></div>
+      <div class="card-title">6 Column</div>
+    </div>
+  </div>
+
+  <div class="h3">Layout Margins</div>
+  <p>Minimum margin size is 6% of the diagonal distance, or 10mm (print) / 10px (digital) &mdash; whichever is larger.</p>
+  <table class="spec-table">
+    <thead><tr><th>Medium</th><th>Minimum Margin</th></tr></thead>
+    <tbody>
+      <tr><td>Print</td><td>6% diagonal or 10mm</td></tr>
+      <tr><td>Digital</td><td>6% diagonal or 10px</td></tr>
+    </tbody>
+  </table>
+  <div class="grid-3" style="margin-top:16px;">
+    <div class="card"><div class="card-img"><img src="assets/layout/margin-portrait.png" alt="Portrait margins"></div><div class="card-body">Portrait format</div></div>
+    <div class="card"><div class="card-img"><img src="assets/layout/margin-landscape.png" alt="Landscape margins"></div><div class="card-body">Landscape format</div></div>
+    <div class="card"><div class="card-img"><img src="assets/layout/margin-square.png" alt="Square margins"></div><div class="card-body">Square format</div></div>
+  </div>
+</section>
+
+<!-- ======== S06 — PHOTOGRAPHY ======== -->
+<section class="sec" id="s06">
+  <div class="sec-hero" data-num="06">
+    <div class="sec-eyebrow">Chapter 06</div>
+    <div class="sec-title">Photography</div>
+    <div class="sec-lede">Gogolook photography is expressed through three key principles: Connected, Innovative Lifestyle, and Trustworthy.</div>
+  </div>
+
+  <div class="h3">Connected</div>
+  <p>Our aim is to showcase collaboration and connection. Gogolook unites people, highlighting harmony and unity. Photography should use warm mood tones and lighting to emphasize the sense of community.</p>
+  <div class="img-grid g3" style="margin-top:16px;">
+    <img src="assets/photography/connected-1.png" alt="Connected photography example">
+    <img src="assets/photography/connected-2.png" alt="Connected photography example">
+    <img src="assets/photography/connected-3.png" alt="Connected photography example">
+  </div>
+
+  <div class="h3">Innovative Lifestyle</div>
+  <p>Relatable, human, warm. Our lifestyle photography should be bright and vibrant, with uncluttered backgrounds and a shallow depth of field. We use an editorial-style approach with minimal styling to showcase real people in genuine, candid moments.</p>
+  <div class="img-grid g3" style="margin-top:16px;">
+    <img src="assets/photography/lifestyle-1.png" alt="Lifestyle photography example">
+    <img src="assets/photography/lifestyle-2.png" alt="Lifestyle photography example">
+    <img src="assets/photography/lifestyle-3.png" alt="Lifestyle photography example">
+  </div>
+
+  <div class="h3">Environment</div>
+  <p>Industry-specific imagery provides context and serves as a backdrop to our brand storytelling. The composition should be engaging and authentic, often incorporating abstract elements or close-up crops to create rich, textured backgrounds.</p>
+  <div class="img-grid g3" style="margin-top:16px;">
+    <img src="assets/photography/environment-1.png" alt="Environment photography">
+    <img src="assets/photography/environment-2.png" alt="Environment photography">
+    <img src="assets/photography/environment-3.png" alt="Environment photography">
+  </div>
+
+  <div class="h3">Do's &amp; Don'ts</div>
+  <div class="grid-2" style="margin-top:16px;">
+    <div>
+      <div class="do-label">&#10003; Do</div>
+      <ul style="font-size:13px;color:var(--gray-700);padding-left:18px;line-height:2;">
+        <li>Use high saturation with warm, rich grading</li>
+        <li>Choose natural and candid selects</li>
+        <li>Ensure modern-day attire and environments</li>
+        <li>Combine people with graphics authentically</li>
+      </ul>
+    </div>
+    <div>
+      <div class="dont-label">&#10005; Don't</div>
+      <ul style="font-size:13px;color:var(--gray-700);padding-left:18px;line-height:2;">
+        <li>Avoid unnaturally dark photos</li>
+        <li>Avoid clich&eacute;d or overly staged images</li>
+        <li>Avoid outdated work environments</li>
+        <li>Avoid graphics dominated by binary code</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======== S07 — AI SKILLS ======== -->
+<section class="sec" id="s07">
+  <div class="sec-hero" data-num="07">
+    <div class="sec-eyebrow">Chapter 07</div>
+    <div class="sec-title">AI Skills</div>
+    <div class="sec-lede">Download Claude Code skills to enforce Gogolook brand standards automatically when generating content, presentations, or web interfaces.</div>
+  </div>
+
+  <div class="h3">Downloadable Skills</div>
+  <p>Each skill is a standalone SKILL.md file. Drop it into your <code>~/.claude/skills/</code> directory and Claude Code will enforce Gogolook brand rules automatically.</p>
+
+  <div class="grid-3" style="margin-top:24px;">
+    <a class="dl-card" href="skills/gogolook-brand-skill.md" download>
+      <div class="dl-badge" style="color:var(--gl-blue);">SKILL.MD</div>
+      <div class="dl-name">Gogolook Brand</div>
+      <div class="dl-desc">Complete brand identity rules: logo usage, color palette, typography, photography principles, voice &amp; tone, gradient rules, and output checklist.</div>
+      <div class="dl-btn">&#8595; Download</div>
+    </a>
+    <a class="dl-card" href="skills/gogolook-slide-skill.md" download>
+      <div class="dl-badge" style="color:var(--gl-green);">SKILL.MD</div>
+      <div class="dl-name">Gogolook Slides</div>
+      <div class="dl-desc">Presentation design system: slide templates, deck structure, data visualization, section dividers, and decoration guidelines for branded decks.</div>
+      <div class="dl-btn">&#8595; Download</div>
+    </a>
+    <a class="dl-card" href="skills/gogolook-ui-skill.md" download>
+      <div class="dl-badge" style="color:var(--gl-horizon);">SKILL.MD</div>
+      <div class="dl-name">Gogolook UI</div>
+      <div class="dl-desc">Full web design system: CSS tokens, component patterns, layout rules, spacing scale, shadows, breakpoints, and accessibility guidelines.</div>
+      <div class="dl-btn">&#8595; Download</div>
+    </a>
+  </div>
+
+  <div class="h3">Installation</div>
+  <div class="card" style="margin:16px 0;background:var(--gray-900);color:var(--gray-300);font-family:'SF Mono','Fira Code',monospace;font-size:13px;line-height:1.8;padding:24px;">
+    <span style="color:var(--gray-500);"># Copy skill to your Claude Code skills directory</span><br>
+    cp gogolook-brand-skill.md ~/.claude/skills/<br>
+    cp gogolook-slide-skill.md ~/.claude/skills/<br>
+    cp gogolook-ui-skill.md ~/.claude/skills/<br><br>
+    <span style="color:var(--gray-500);"># Or symlink for automatic updates</span><br>
+    ln -s "$(pwd)/skills/gogolook-brand-skill.md" ~/.claude/skills/
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+/* Password gate */
+var passwords = ['gogolook2026', '1234'];
+var gate = document.getElementById('loginGate');
+var input = document.getElementById('loginInput');
+var btn = document.getElementById('loginBtn');
+var error = document.getElementById('loginError');
+
+function tryLogin() {
+  if (passwords.indexOf(input.value.toLowerCase()) !== -1) {
+    gate.classList.add('hidden');
+    document.body.classList.remove('locked');
+    try { sessionStorage.setItem('gl-auth', '1'); } catch(e) {}
+  } else {
+    error.textContent = 'Incorrect password';
+    input.value = '';
+    input.focus();
+  }
+}
+btn.addEventListener('click', tryLogin);
+input.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryLogin(); });
+
+/* Auto-login if already authenticated this session */
+try {
+  if (sessionStorage.getItem('gl-auth') === '1') {
+    gate.classList.add('hidden');
+    document.body.classList.remove('locked');
+  }
+} catch(e) {}
+
+/* Active TOC tracking */
+var tocLinks = document.querySelectorAll('.toc a');
+var sections = document.querySelectorAll('.sec');
+
+function updateToc() {
+  var scrollY = window.scrollY + 100;
+  var current = '';
+  sections.forEach(function(s) {
+    if (s.offsetTop <= scrollY) current = s.id;
+  });
+  tocLinks.forEach(function(a) {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateToc);
+updateToc();
+
+/* Mobile sidebar */
+var toggle = document.getElementById('mobileToggle');
+var sidebar = document.getElementById('sidebar');
+var overlay = document.getElementById('mobileOverlay');
+
+toggle.addEventListener('click', function() {
+  sidebar.classList.toggle('open');
+  overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+});
+overlay.addEventListener('click', function() {
+  sidebar.classList.remove('open');
+  overlay.style.display = 'none';
+});
+/* Close sidebar on nav click (mobile) */
+tocLinks.forEach(function(a) {
+  a.addEventListener('click', function() {
+    if (window.innerWidth <= 1024) {
+      sidebar.classList.remove('open');
+      overlay.style.display = 'none';
+    }
+  });
+});
+</script>
+</body>
+</html>
