@@ -149,64 +149,63 @@ body.locked { overflow: hidden; }
    ============================================================ */
 .sidebar {
   position: sticky; top: 0; height: 100vh;
-  background: var(--white);
-  color: var(--gray-900);
+  background: var(--gradient-brand);
+  color: var(--white);
   padding: 36px 28px;
   display: flex; flex-direction: column;
   overflow-y: auto;
   z-index: 100;
-  border-right: 1px solid var(--gray-200);
 }
 .sb-logo {
   font-family: var(--font-display);
   font-size: 32px; font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--gl-blue);
+  color: var(--white);
 }
 .sb-sub {
   font-size: 11px; font-weight: 600;
   letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--gray-500);
+  text-transform: uppercase; color: rgba(255,255,255,0.6);
   margin-bottom: 24px;
 }
 .sb-label {
   font-size: 10px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--gray-500);
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
   font-weight: 700; margin-bottom: 8px;
 }
-.sb-edition { font-size: 12px; font-weight: 500; color: var(--gray-700); margin-bottom: 4px; }
-.sb-divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
+.sb-edition { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.8); margin-bottom: 4px; }
+.sb-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 16px 0; }
 
 .toc { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 500; }
 .toc a {
   display: grid; grid-template-columns: 30px 1fr;
   padding: 10px 12px; border-radius: 8px;
-  color: var(--gray-700); text-decoration: none;
+  color: rgba(255,255,255,0.8); text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
-.toc a:hover { background: var(--gl-intel-03); color: var(--gl-blue); }
-.toc a.active { background: var(--gl-intel-02); color: var(--gl-blue); font-weight: 700; }
-.toc-num { color: var(--gray-500); font-family: var(--font-display); font-size: 12px; font-weight: 600; }
-.toc-skill { color: var(--gl-blue); font-weight: 600; }
+.toc a:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+.toc a.active { background: rgba(255,255,255,0.18); color: var(--white); font-weight: 700; }
+.toc-num { color: rgba(255,255,255,0.5); font-family: var(--font-display); font-size: 12px; font-weight: 600; }
+.toc-skill { color: var(--white); font-weight: 600; }
 
 .sb-download {
   margin-top: 24px;
   display: inline-flex; width: 100%;
   align-items: center; justify-content: center; gap: 8px;
   padding: 13px 20px;
-  background: var(--gl-blue);
+  background: var(--white);
   border: none;
-  color: var(--white); border-radius: 10px;
+  color: var(--gl-shadow); border-radius: 10px;
   font-family: var(--font-display); font-size: 12px; font-weight: 700;
   letter-spacing: 0.06em; text-transform: uppercase;
   text-decoration: none; cursor: pointer;
   transition: background 0.2s, transform 0.15s;
 }
-.sb-download:hover { background: #003CBB; transform: translateY(-1px); }
+.sb-download:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
 
 .sb-footer {
   margin-top: auto; padding-top: 20px;
-  font-size: 10px; font-weight: 500; color: var(--gray-500); letter-spacing: 0.02em; line-height: 1.6;
+  font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.02em; line-height: 1.6;
 }
 
 /* ============================================================
