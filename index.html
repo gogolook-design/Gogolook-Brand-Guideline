@@ -64,7 +64,7 @@
   --gradient-hero:  linear-gradient(135deg, var(--gl-blue) 0%, var(--gl-genuine) 50%, var(--gl-horizon) 100%);
 
   /* Sizing */
-  --sidebar-w: 280px;
+  --sidebar-w: 220px;
   --content-max: 960px;
 }
 
@@ -151,7 +151,7 @@ body.locked { overflow: hidden; }
   position: sticky; top: 0; height: 100vh;
   background: var(--gradient-brand);
   color: var(--white);
-  padding: 36px 28px;
+  padding: 28px 20px;
   display: flex; flex-direction: column;
   overflow-y: auto;
   z-index: 100;
@@ -205,7 +205,7 @@ body.locked { overflow: hidden; }
 
 .sb-footer {
   margin-top: auto; padding-top: 20px;
-  font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.02em; line-height: 1.6;
+  font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.85); letter-spacing: 0.02em; line-height: 1.6;
 }
 
 /* ============================================================
@@ -224,9 +224,7 @@ body.locked { overflow: hidden; }
 .sec {
   scroll-margin-top: 24px;
   padding-bottom: 96px; margin-bottom: 96px;
-  border-bottom: 1px solid var(--gray-200);
 }
-.sec:last-of-type { border-bottom: none; }
 
 /* Chapter hero */
 .sec-hero {
@@ -254,7 +252,8 @@ body.locked { overflow: hidden; }
 #s04 .sec-hero { background: linear-gradient(135deg, var(--gl-shadow) 0%, var(--gl-blue) 100%); }
 #s05 .sec-hero { background: linear-gradient(135deg, var(--gl-blue) 0%, var(--gl-green) 100%); }
 #s06 .sec-hero { background: linear-gradient(135deg, var(--gl-shadow) 0%, var(--gl-genuine) 100%); }
-#s07 .sec-hero { background: var(--gradient-brand); }
+#s07 .sec-hero { background: linear-gradient(135deg, var(--gl-shadow) 0%, #182c4f 50%, var(--gl-blue) 100%); }
+#s08 .sec-hero { background: var(--gradient-brand); }
 
 .sec-eyebrow {
   font-size: 11px; font-weight: 700;
@@ -263,8 +262,8 @@ body.locked { overflow: hidden; }
 }
 .sec-title {
   font-family: var(--font-display);
-  font-size: 36px; font-weight: 800;
-  letter-spacing: -0.01em; margin-bottom: 14px;
+  font-size: 48px; font-weight: 800;
+  letter-spacing: -0.02em; margin-bottom: 16px;
 }
 .sec-lede {
   font-size: 15px; line-height: 1.7;
@@ -277,8 +276,6 @@ body.locked { overflow: hidden; }
   font-size: 20px; font-weight: 700;
   line-height: 1.4; color: var(--gray-900);
   margin: 48px 0 18px;
-  padding-top: 32px;
-  border-top: 1px solid var(--gray-200);
   display: flex; align-items: center; gap: 10px;
 }
 .h3::before {
@@ -287,7 +284,7 @@ body.locked { overflow: hidden; }
   background: var(--gl-green);
   border-radius: 4px; flex-shrink: 0;
 }
-.sec .h3:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+.sec .h3:first-of-type { margin-top: 0; }
 
 .h4 {
   font-family: var(--font-display);
@@ -406,7 +403,8 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
   font-size: 18px; font-weight: 700;
   color: var(--gray-900); margin-bottom: 10px;
 }
-.dl-desc { font-size: 14px; font-weight: 500; color: var(--gray-700); line-height: 1.65; margin-bottom: 20px; flex: 1; }
+.dl-desc { font-size: 14px; font-weight: 500; color: var(--gray-700); line-height: 1.65; margin-bottom: 12px; flex: 1; }
+.dl-meta { font-size: 12px; font-weight: 600; color: var(--gray-400); margin-bottom: 16px; font-style: italic; }
 .dl-btn {
   align-self: flex-start;
   display: inline-flex; align-items: center; gap: 8px;
@@ -491,7 +489,7 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
   <div class="sb-sub">Brand Design Guidelines</div>
 
   <div class="sb-label">Edition</div>
-  <div class="sb-edition">V1 &middot; July 2024</div>
+  <div class="sb-edition">V2 &middot; June 2026</div>
   <div class="sb-divider"></div>
 
   <div class="sb-label">Contents</div>
@@ -502,10 +500,10 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
     <a href="#s04"><span class="toc-num">04</span><span>Typography</span></a>
     <a href="#s05"><span class="toc-num">05</span><span>Layout</span></a>
     <a href="#s06"><span class="toc-num">06</span><span>Photography</span></a>
-    <a href="#s07"><span class="toc-num">07</span><span class="toc-skill">AI Skills &darr;</span></a>
+    <a href="#s07"><span class="toc-num">07</span><span>Web UI</span></a>
+    <a href="#s08"><span class="toc-num">08</span><span class="toc-skill">AI Skills &darr;</span></a>
   </div>
 
-  <a class="sb-download" href="skills/gogolook-brand-skill.md" download>&#8595; BRAND SKILL</a>
 
   <div class="sb-footer">
     CONFIDENTIAL &copy; 2026 Gogolook Co., Ltd.<br>All Rights Reserved.
@@ -516,14 +514,14 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 <main class="main">
 
 <!-- ======== HERO LOGO ======== -->
-<div style="padding:64px 0 48px;border-bottom:1px solid var(--gray-200);margin-bottom:80px;">
+<div style="padding:64px 0 48px;margin-bottom:80px;">
   <img src="assets/logo/GGL_logo_RGB_GGL_logo_rgb_lbg_fit.svg" alt="Gogolook" style="width:100%;display:block;">
 </div>
 
 <!-- ======== S01 — BRAND CORE ======== -->
 <section class="sec" id="s01">
   <div class="sec-hero" data-num="01">
-    <div class="sec-eyebrow">Chapter 01</div>
+
     <div class="sec-title">Brand Core</div>
     <div class="sec-lede">Gogolook is a TrustTech company founded in 2012, committed to building a fraud-free digital environment and a reliable communication network.</div>
   </div>
@@ -586,7 +584,7 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 <!-- ======== S02 — LOGO ======== -->
 <section class="sec" id="s02">
   <div class="sec-hero" data-num="02">
-    <div class="sec-eyebrow">Chapter 02</div>
+
     <div class="sec-title">Logo</div>
     <div class="sec-lede">The Gogolook logo embraces a humanistic and approachable design with a custom rounded sans serif typeface, reflecting trust within a robust community.</div>
   </div>
@@ -668,7 +666,7 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 <!-- ======== S03 — COLORS ======== -->
 <section class="sec" id="s03">
   <div class="sec-hero" data-num="03">
-    <div class="sec-eyebrow">Chapter 03</div>
+
     <div class="sec-title">Colors</div>
     <div class="sec-lede">Gogolook's color system is built around four primary families and two supporting secondary palettes, each conveying a distinct brand attribute.</div>
   </div>
@@ -677,8 +675,9 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 
   <div class="h4">Gogolook Blue</div>
   <p>Symbolizes reliability, security, and trust. The dominant brand color used for headlines, titles, main buttons, and main backgrounds.</p>
-  <div class="grid-4">
-    <div class="swatch"><div class="swatch-color" style="background:#0058EA;"></div><div class="swatch-info"><div class="swatch-name">Blue 00</div><div class="swatch-hex">#0058EA</div></div></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
+    <div class="swatch"><div class="swatch-color" style="background:#003CBB;"></div><div class="swatch-info"><div class="swatch-name">Blue Dark</div><div class="swatch-hex">#003CBB</div></div></div>
+    <div class="swatch" style="border:2px solid var(--gl-blue);"><div class="swatch-color" style="background:#0058EA;"></div><div class="swatch-info"><div class="swatch-name">Blue 00</div><div class="swatch-hex">#0058EA</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#4082EF;"></div><div class="swatch-info"><div class="swatch-name">Blue 01</div><div class="swatch-hex">#4082EF</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#7EABF4;"></div><div class="swatch-info"><div class="swatch-name">Blue 02</div><div class="swatch-hex">#7EABF4</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#BFD5FA;"></div><div class="swatch-info"><div class="swatch-name">Blue 03</div><div class="swatch-hex">#BFD5FA</div></div></div>
@@ -686,8 +685,9 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 
   <div class="h4">Neo Green</div>
   <p>Represents growth, renewal, and harmony. Used for subheadlines, calls to action, icons, graphical elements, and labels.</p>
-  <div class="grid-4">
-    <div class="swatch"><div class="swatch-color" style="background:#01D3B8;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 00</div><div class="swatch-hex">#01D3B8</div></div></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
+    <div class="swatch"><div class="swatch-color" style="background:#00A893;"></div><div class="swatch-info"><div class="swatch-name">Neo Green Dark</div><div class="swatch-hex">#00A893</div></div></div>
+    <div class="swatch" style="border:2px solid var(--gl-green);"><div class="swatch-color" style="background:#01D3B8;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 00</div><div class="swatch-hex">#01D3B8</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#3FDECA;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 01</div><div class="swatch-hex">#3FDECA</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#80E9DB;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 02</div><div class="swatch-hex">#80E9DB</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#BEF4ED;"></div><div class="swatch-info"><div class="swatch-name">Neo Green 03</div><div class="swatch-hex">#BEF4ED</div></div></div>
@@ -695,8 +695,9 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 
   <div class="h4">Genuine Blue</div>
   <p>Conveys stability and depth. Used for body text links, labels, and accent usage supporting graphics.</p>
-  <div class="grid-4">
-    <div class="swatch"><div class="swatch-color" style="background:#008CF4;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 00</div><div class="swatch-hex">#008CF4</div></div></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
+    <div class="swatch"><div class="swatch-color" style="background:#006BC2;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue Dark</div><div class="swatch-hex">#006BC2</div></div></div>
+    <div class="swatch" style="border:2px solid var(--gl-genuine);"><div class="swatch-color" style="background:#008CF4;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 00</div><div class="swatch-hex">#008CF4</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#41A9F6;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 01</div><div class="swatch-hex">#41A9F6</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#7FC5F9;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 02</div><div class="swatch-hex">#7FC5F9</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#BEE2FC;"></div><div class="swatch-info"><div class="swatch-name">Genuine Blue 03</div><div class="swatch-hex">#BEE2FC</div></div></div>
@@ -704,8 +705,9 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 
   <div class="h4">Clear Horizon</div>
   <p>Evokes openness and serenity. Used for graphical elements.</p>
-  <div class="grid-4">
-    <div class="swatch"><div class="swatch-color" style="background:#00C0FE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 00</div><div class="swatch-hex">#00C0FE</div></div></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
+    <div class="swatch"><div class="swatch-color" style="background:#0098CC;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon Dark</div><div class="swatch-hex">#0098CC</div></div></div>
+    <div class="swatch" style="border:2px solid var(--gl-horizon);"><div class="swatch-color" style="background:#00C0FE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 00</div><div class="swatch-hex">#00C0FE</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#40D0FE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 01</div><div class="swatch-hex">#40D0FE</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#7EDFFE;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 02</div><div class="swatch-hex">#7EDFFE</div></div></div>
     <div class="swatch"><div class="swatch-color" style="background:#BFEFFF;"></div><div class="swatch-info"><div class="swatch-name">Clear Horizon 03</div><div class="swatch-hex">#BFEFFF</div></div></div>
@@ -775,7 +777,7 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 <!-- ======== S04 — TYPOGRAPHY ======== -->
 <section class="sec" id="s04">
   <div class="sec-hero" data-num="04">
-    <div class="sec-eyebrow">Chapter 04</div>
+
     <div class="sec-title">Typography</div>
     <div class="sec-lede">Gogolook's typefaces are humanistic, rounded, and highly legible &mdash; reflecting an innovative and modern tech identity.</div>
   </div>
@@ -823,7 +825,7 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 <!-- ======== S05 — LAYOUT ======== -->
 <section class="sec" id="s05">
   <div class="sec-hero" data-num="05">
-    <div class="sec-eyebrow">Chapter 05</div>
+
     <div class="sec-title">Layout</div>
     <div class="sec-lede">A consistent 12-column grid and defined margins ensure order, hierarchy, and breathing room across all formats.</div>
   </div>
@@ -864,7 +866,7 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 <!-- ======== S06 — PHOTOGRAPHY ======== -->
 <section class="sec" id="s06">
   <div class="sec-hero" data-num="06">
-    <div class="sec-eyebrow">Chapter 06</div>
+
     <div class="sec-title">Photography</div>
     <div class="sec-lede">Gogolook photography is expressed through three key principles: Connected, Innovative Lifestyle, and Trustworthy.</div>
   </div>
@@ -916,46 +918,268 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
   </div>
 </section>
 
-<!-- ======== S07 — AI SKILLS ======== -->
+<!-- ======== S07 — WEB UI ======== -->
 <section class="sec" id="s07">
   <div class="sec-hero" data-num="07">
-    <div class="sec-eyebrow">Chapter 07</div>
+
+    <div class="sec-title">Web UI</div>
+    <div class="sec-lede">Design system tokens and patterns extracted from gogolook.com &mdash; use these to build web interfaces that match the Gogolook digital presence.</div>
+  </div>
+
+  <div class="h3">CSS Variables</div>
+  <p>Core design tokens used across gogolook.com, defined as CSS custom properties.</p>
+  <div class="card" style="margin:16px 0;background:var(--gray-900);color:var(--gray-300);font-family:'SF Mono','Fira Code',monospace;font-size:13px;line-height:2;padding:28px;">
+    <span style="color:var(--gray-500);">/* Gogolook Web Tokens */</span><br>
+    --blue: <span style="color:var(--gl-blue-02);">#0058ea</span>;<br>
+    --dark-blue: <span style="color:var(--gl-blue-02);">#0f2647</span>;<br>
+    --light-blue: <span style="color:var(--gl-blue-02);">#008cf4</span>;<br>
+    --green: <span style="color:var(--gl-green-02);">#01d3b8</span>;<br>
+    --bg-blue: <span style="color:var(--gl-blue-02);">#e7f1fd</span>;<br>
+    --white: <span style="color:var(--gl-blue-02);">white</span>;
+  </div>
+
+  <div class="h3">Color Palette</div>
+  <p>All colors actively used on gogolook.com, organized by role.</p>
+
+  <div class="h4">Brand Colors</div>
+  <div class="grid-4" style="margin-top:8px;">
+    <div class="swatch"><div class="swatch-color" style="background:#0058ea;"></div><div class="swatch-info"><div class="swatch-name">--blue</div><div class="swatch-hex">#0058EA</div><div class="swatch-usage">Primary CTA, headings, links, active states</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#0f2647;"></div><div class="swatch-info"><div class="swatch-name">--dark-blue</div><div class="swatch-hex">#0F2647</div><div class="swatch-usage">Dark backgrounds, footer, nav text</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#008cf4;"></div><div class="swatch-info"><div class="swatch-name">--light-blue</div><div class="swatch-hex">#008CF4</div><div class="swatch-usage">Accent, gradient midpoint</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#01d3b8;"></div><div class="swatch-info"><div class="swatch-name">--green</div><div class="swatch-hex">#01D3B8</div><div class="swatch-usage">Accent highlights, gradient endpoint</div></div></div>
+  </div>
+
+  <div class="h4">Surface Colors</div>
+  <div class="grid-4" style="margin-top:8px;">
+    <div class="swatch"><div class="swatch-color" style="background:#e7f1fd;"></div><div class="swatch-info"><div class="swatch-name">--bg-blue</div><div class="swatch-hex">#E7F1FD</div><div class="swatch-usage">Light section backgrounds</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ffffff;border-bottom:1px solid #e5e7eb;"></div><div class="swatch-info"><div class="swatch-name">White</div><div class="swatch-hex">#FFFFFF</div><div class="swatch-usage">Primary background, cards</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#fafafa;"></div><div class="swatch-info"><div class="swatch-name">Off-white</div><div class="swatch-hex">#FAFAFA</div><div class="swatch-usage">Alternate section background</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#f3f3f3;"></div><div class="swatch-info"><div class="swatch-name">Light gray</div><div class="swatch-hex">#F3F3F3</div><div class="swatch-usage">Dividers, subtle backgrounds</div></div></div>
+  </div>
+
+  <div class="h4">Text Colors</div>
+  <div class="grid-4" style="margin-top:8px;">
+    <div class="swatch"><div class="swatch-color" style="background:#0f2647;"></div><div class="swatch-info"><div class="swatch-name">Heading text</div><div class="swatch-hex">#0F2647</div><div class="swatch-usage">h3&ndash;h6, body links</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#0058ea;"></div><div class="swatch-info"><div class="swatch-name">Heading accent</div><div class="swatch-hex">#0058EA</div><div class="swatch-usage">h1, h2, active nav links</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#333333;"></div><div class="swatch-info"><div class="swatch-name">Body text</div><div class="swatch-hex">#333333</div><div class="swatch-usage">Default paragraph color</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#5d6c7b;"></div><div class="swatch-info"><div class="swatch-name">Secondary text</div><div class="swatch-hex">#5D6C7B</div><div class="swatch-usage">Captions, metadata</div></div></div>
+  </div>
+
+  <div class="h3">Typography</div>
+  <table class="spec-table">
+    <thead><tr><th>Role</th><th>Font</th><th>Weight</th><th>Size</th><th>Line Height</th></tr></thead>
+    <tbody>
+      <tr><td>h1</td><td>Plus Jakarta Sans</td><td>700</td><td>Fluid (large)</td><td>140%</td></tr>
+      <tr><td>h2</td><td>Plus Jakarta Sans</td><td>700</td><td>Fluid</td><td>100%</td></tr>
+      <tr><td>h3</td><td>Plus Jakarta Sans</td><td>700</td><td>1.5rem</td><td>120%</td></tr>
+      <tr><td>h4</td><td>Plus Jakarta Sans</td><td>600</td><td>1.25rem</td><td>120%</td></tr>
+      <tr><td>h5</td><td>Plus Jakarta Sans</td><td>500</td><td>1.25rem</td><td>130%</td></tr>
+      <tr><td>Body</td><td>Inter</td><td>400</td><td>1.125rem (18px)</td><td>140%</td></tr>
+      <tr><td>Body medium</td><td>Inter</td><td>500</td><td>1.125rem</td><td>140%</td></tr>
+      <tr><td>Small</td><td>Inter</td><td>400&ndash;500</td><td>0.875rem (14px)</td><td>140%</td></tr>
+      <tr><td>XSmall / Tag</td><td>Inter</td><td>500&ndash;600</td><td>0.75rem (12px)</td><td>1.4</td></tr>
+      <tr><td>XLarge</td><td>Plus Jakarta Sans</td><td>500</td><td>2.25rem</td><td>1.2</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Spacing Scale</div>
+  <p>Spacing follows a rem-based scale used for padding, margins, and gaps across the site.</p>
+  <div style="display:flex;gap:6px;align-items:flex-end;margin:20px 0 12px;">
+    <div style="width:32px;height:8px;background:var(--gl-blue-03);border-radius:4px;" title="0.25rem"></div>
+    <div style="width:32px;height:16px;background:var(--gl-blue-03);border-radius:4px;" title="0.5rem"></div>
+    <div style="width:32px;height:24px;background:var(--gl-blue-02);border-radius:4px;" title="0.75rem"></div>
+    <div style="width:32px;height:32px;background:var(--gl-blue-02);border-radius:4px;" title="1rem"></div>
+    <div style="width:32px;height:40px;background:var(--gl-blue-01);border-radius:4px;" title="1.25rem"></div>
+    <div style="width:32px;height:48px;background:var(--gl-blue-01);border-radius:4px;" title="1.5rem"></div>
+    <div style="width:32px;height:64px;background:var(--gl-blue);border-radius:4px;" title="2rem"></div>
+    <div style="width:32px;height:80px;background:var(--gl-blue);border-radius:4px;" title="2.5rem"></div>
+    <div style="width:32px;height:100px;background:var(--gl-shadow-01);border-radius:4px;" title="3rem"></div>
+    <div style="width:32px;height:128px;background:var(--gl-shadow);border-radius:4px;" title="5rem"></div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>4xs</td><td>0.25rem (4px)</td><td>Tight gaps, icon spacing</td></tr>
+      <tr><td>3xs</td><td>0.5rem (8px)</td><td>Inline spacing, tag gaps</td></tr>
+      <tr><td>2xs</td><td>0.75rem (12px)</td><td>Button padding, list gaps</td></tr>
+      <tr><td>xs</td><td>1rem (16px)</td><td>Card internal padding, paragraph spacing</td></tr>
+      <tr><td>sm</td><td>1.25rem (20px)</td><td>Section inner spacing</td></tr>
+      <tr><td>md</td><td>1.5rem (24px)</td><td>Component gaps</td></tr>
+      <tr><td>lg</td><td>2rem (32px)</td><td>Section gaps</td></tr>
+      <tr><td>xl</td><td>2.5rem (40px)</td><td>Large component spacing</td></tr>
+      <tr><td>2xl</td><td>4rem (64px)</td><td>Tablet section padding</td></tr>
+      <tr><td>3xl</td><td>5rem (80px)</td><td>Desktop section side padding</td></tr>
+      <tr><td>4xl</td><td>6.25rem (100px)</td><td>Desktop section top/bottom padding</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Breakpoints</div>
+  <table class="spec-table">
+    <thead><tr><th>Name</th><th>Max Width</th><th>Section Padding</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Desktop</td><td>&gt; 991px</td><td>6.25rem 5rem</td><td>Full layout, max-width 1200px container</td></tr>
+      <tr><td>Tablet</td><td>&le; 991px</td><td>4rem 2rem</td><td>Stacked layouts, reduced gaps</td></tr>
+      <tr><td>Mobile landscape</td><td>&le; 767px</td><td>2.5rem 1.25rem</td><td>Single column, font-size reductions</td></tr>
+      <tr><td>Mobile portrait</td><td>&le; 479px</td><td>2.5rem 1.25rem</td><td>Minimal spacing, compact typography</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Border Radius</div>
+  <div style="display:flex;gap:16px;align-items:center;margin:20px 0;">
+    <div style="width:56px;height:56px;background:var(--gl-intel);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-700);">3px</div>
+    <div style="width:56px;height:56px;background:var(--gl-intel);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-700);">0.5rem</div>
+    <div style="width:56px;height:56px;background:var(--gl-intel);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-700);">20px</div>
+    <div style="width:56px;height:56px;background:var(--gl-intel);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-700);">100px</div>
+    <div style="width:56px;height:56px;background:var(--gl-intel);border-radius:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-700);">100%</div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Value</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>3px</td><td>Subtle rounding on inputs, badges</td></tr>
+      <tr><td>0.5rem (8px)</td><td>Cards, content blocks</td></tr>
+      <tr><td>20px</td><td>Large cards, section masks, image containers</td></tr>
+      <tr><td>100px / 1000px</td><td>Buttons, pills, tags</td></tr>
+      <tr><td>100%</td><td>Circular avatars, icons</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Shadows</div>
+  <div style="display:flex;gap:24px;margin:20px 0;">
+    <div style="width:96px;height:72px;background:var(--white);border-radius:12px;box-shadow:0 0 0 1px #0000001a, 0 1px 3px #0000001a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-500);">Subtle</div>
+    <div style="width:96px;height:72px;background:var(--white);border-radius:12px;box-shadow:-1px 1px 12px #3333331a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-500);">Card</div>
+    <div style="width:96px;height:72px;background:var(--white);border-radius:12px;box-shadow:0 3px 8px #00000026;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gray-500);">Elevated</div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Level</th><th>Value</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>Subtle</td><td><code>0 0 0 1px #0000001a, 0 1px 3px #0000001a</code></td><td>Default card, resting state</td></tr>
+      <tr><td>Card</td><td><code>-1px 1px 12px #3333331a</code></td><td>Floating cards, banners</td></tr>
+      <tr><td>Elevated</td><td><code>0 3px 8px #00000026</code></td><td>Dropdown, tooltip, hover state</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Button Component</div>
+  <p>Primary button pattern used across the site. Pill-shaped with icon arrow.</p>
+  <div style="display:flex;gap:16px;align-items:center;margin:20px 0;">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--white);color:var(--gl-blue);border:1px solid var(--white);border-radius:100px;font-family:var(--font-display);font-size:14px;font-weight:600;">Learn More &rarr;</div>
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--gl-blue);color:var(--white);border:1px solid var(--gl-blue);border-radius:100px;font-family:var(--font-display);font-size:14px;font-weight:600;">Get Started &rarr;</div>
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:transparent;color:var(--gl-blue);border:1px solid var(--gl-blue);border-radius:100px;font-family:var(--font-display);font-size:14px;font-weight:600;">Outline &rarr;</div>
+  </div>
+  <table class="spec-table">
+    <thead><tr><th>Property</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Padding</td><td>0.75rem 1.5rem (12px 24px)</td></tr>
+      <tr><td>Border radius</td><td>100px (pill)</td></tr>
+      <tr><td>Font</td><td>Plus Jakarta Sans, 600 weight</td></tr>
+      <tr><td>Transition</td><td>all 0.2s ease</td></tr>
+      <tr><td>Hover</td><td>opacity: 0.75</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Gradients</div>
+  <p>Gradient patterns used for hero backgrounds, overlays, and decorative elements.</p>
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="height:100px;background:linear-gradient(162deg, #0f2647, #0058ea 36%, #008cf4 69%, #01d3b8);"></div>
+      <div style="padding:16px;">
+        <div class="card-title">Brand Gradient</div>
+        <div class="card-body"><code>linear-gradient(162deg, --dark-blue, --blue 36%, --light-blue 69%, --green)</code></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="height:100px;background:linear-gradient(225deg, #40deca4d 26%, #3fd0fe4d 52%, #d1e3fc80 61%);"></div>
+      <div style="padding:16px;">
+        <div class="card-title">Soft Overlay</div>
+        <div class="card-body"><code>linear-gradient(225deg, #40deca4d 26%, #3fd0fe4d 52%, #d1e3fc80 61%)</code></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:12px;">
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="height:100px;background:linear-gradient(214deg, #000, #0058ea80 0%, #d1e3fc80 50%);"></div>
+      <div style="padding:16px;">
+        <div class="card-title">Dark Overlay</div>
+        <div class="card-body"><code>linear-gradient(214deg, #000, #0058ea80, #d1e3fc80)</code></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="height:100px;background:linear-gradient(90deg, #e7f1fd, #fff);"></div>
+      <div style="padding:16px;">
+        <div class="card-title">Section Fade</div>
+        <div class="card-body"><code>linear-gradient(90deg, --bg-blue, --white)</code></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h3">Transitions</div>
+  <table class="spec-table">
+    <thead><tr><th>Pattern</th><th>Value</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>Default</td><td><code>all 0.2s ease</code></td><td>Buttons, links, hover states</td></tr>
+      <tr><td>Slow</td><td><code>all 0.3s ease</code></td><td>Panels, drawers, navigation</td></tr>
+      <tr><td>Color only</td><td><code>color 0.2s ease</code></td><td>Text color transitions</td></tr>
+      <tr><td>Border</td><td><code>border-color 0.2s ease</code></td><td>Form inputs on focus</td></tr>
+    </tbody>
+  </table>
+
+  <div class="h3">Layout</div>
+  <table class="spec-table">
+    <thead><tr><th>Property</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Container max-width</td><td>1200px</td></tr>
+      <tr><td>Section padding (desktop)</td><td>6.25rem 5rem (100px 80px)</td></tr>
+      <tr><td>Section padding (tablet)</td><td>4rem 2rem (64px 32px)</td></tr>
+      <tr><td>Section padding (mobile)</td><td>2.5rem 1.25rem (40px 20px)</td></tr>
+      <tr><td>Grid column gaps</td><td>0.75rem &ndash; 4rem depending on component</td></tr>
+      <tr><td>Card border radius</td><td>20px</td></tr>
+      <tr><td>Button border radius</td><td>100px (pill)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ======== S08 — AI SKILLS ======== -->
+<section class="sec" id="s08">
+  <div class="sec-hero" data-num="08">
+
     <div class="sec-title">AI Skills</div>
     <div class="sec-lede">Download Claude Code skills to enforce Gogolook brand standards automatically when generating content, presentations, or web interfaces.</div>
   </div>
 
   <div class="h3">Downloadable Skills</div>
-  <p>Each skill is a standalone SKILL.md file. Drop it into your <code>~/.claude/skills/</code> directory and Claude Code will enforce Gogolook brand rules automatically.</p>
+  <p>Each skill is a standalone SKILL.md file. Drop it into your <code>~/.claude/skills/</code> directory and Claude Code will enforce Gogolook brand rules automatically. Bundle downloads include the Brand skill for complete brand context.</p>
 
   <div class="grid-3" style="margin-top:24px;">
     <a class="dl-card" href="skills/gogolook-brand-skill.md" download>
       <div class="dl-badge" style="color:var(--gl-blue);">SKILL.MD</div>
       <div class="dl-name">Gogolook Brand</div>
-      <div class="dl-desc">Complete brand identity rules: logo usage, color palette, typography, photography principles, voice &amp; tone, gradient rules, and output checklist.</div>
-      <div class="dl-btn">&#8595; Download</div>
+      <div class="dl-desc">On-brand review and asset creation: logo usage, color palette, typography, photography, voice &amp; tone, gradient rules, and output checklist. Use for brand compliance checks and quick on-brand design work.</div>
+      <div class="dl-btn">&#8595; Download SKILL.MD</div>
     </a>
-    <a class="dl-card" href="skills/gogolook-slide-skill.md" download>
-      <div class="dl-badge" style="color:var(--gl-green);">SKILL.MD</div>
+    <a class="dl-card" href="skills/gogolook-slides-bundle.zip" download>
+      <div class="dl-badge" style="color:var(--gl-green);">BUNDLE</div>
       <div class="dl-name">Gogolook Slides</div>
-      <div class="dl-desc">Presentation design system: slide templates, deck structure, data visualization, section dividers, and decoration guidelines for branded decks.</div>
-      <div class="dl-btn">&#8595; Download</div>
+      <div class="dl-desc">Presentation design system: slide templates, deck structure, data visualization, decoration guidelines for branded decks. Includes the Brand skill for on-brand review during deck creation.</div>
+      <div class="dl-meta">Includes: gogolook-slide-skill.md + gogolook-brand-skill.md</div>
+      <div class="dl-btn">&#8595; Download Bundle (.zip)</div>
     </a>
-    <a class="dl-card" href="skills/gogolook-ui-skill.md" download>
-      <div class="dl-badge" style="color:var(--gl-horizon);">SKILL.MD</div>
+    <a class="dl-card" href="skills/gogolook-ui-bundle.zip" download>
+      <div class="dl-badge" style="color:var(--gl-horizon);">BUNDLE</div>
       <div class="dl-name">Gogolook UI</div>
-      <div class="dl-desc">Full web design system: CSS tokens, component patterns, layout rules, spacing scale, shadows, breakpoints, and accessibility guidelines.</div>
-      <div class="dl-btn">&#8595; Download</div>
+      <div class="dl-desc">Full web design system: CSS tokens, component patterns, layout rules, spacing scale, shadows, breakpoints, and accessibility guidelines. Includes the Brand skill for brand context in web work.</div>
+      <div class="dl-meta">Includes: gogolook-ui-skill.md + gogolook-brand-skill.md</div>
+      <div class="dl-btn">&#8595; Download Bundle (.zip)</div>
     </a>
   </div>
 
   <div class="h3">Installation</div>
   <div class="card" style="margin:16px 0;background:var(--gray-900);color:var(--gray-300);font-family:'SF Mono','Fira Code',monospace;font-size:13px;line-height:1.8;padding:24px;">
-    <span style="color:var(--gray-500);"># Copy skill to your Claude Code skills directory</span><br>
+    <span style="color:var(--gray-500);"># Unzip bundle and copy skills to Claude Code</span><br>
+    unzip gogolook-slides-bundle.zip -d ~/.claude/skills/<br>
+    unzip gogolook-ui-bundle.zip -d ~/.claude/skills/<br><br>
+    <span style="color:var(--gray-500);"># Or copy individual skill files</span><br>
     cp gogolook-brand-skill.md ~/.claude/skills/<br>
     cp gogolook-slide-skill.md ~/.claude/skills/<br>
-    cp gogolook-ui-skill.md ~/.claude/skills/<br><br>
-    <span style="color:var(--gray-500);"># Or symlink for automatic updates</span><br>
-    ln -s "$(pwd)/skills/gogolook-brand-skill.md" ~/.claude/skills/
+    cp gogolook-ui-skill.md ~/.claude/skills/
   </div>
 </section>
 
@@ -1032,6 +1256,7 @@ tocLinks.forEach(function(a) {
     }
   });
 });
+
 </script>
 </body>
 </html>
