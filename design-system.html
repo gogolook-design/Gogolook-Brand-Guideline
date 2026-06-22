@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gogolook Web Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GOGOLOOK.COM ACTUAL TOKENS (from Webflow CSS)
+   ============================================================ */
+:root {
+  --blue:        #0058EA;
+  --dark-blue:   #0F2647;
+  --light-blue:  #008CF4;
+  --green:       #01D3B8;
+  --bg-blue:     #E7F1FD;
+  --white:       #FFFFFF;
+  --navy:        #182c4f;
+  --slate:       #5d6c7b;
+  --muted:       #758696;
+  --red:         #ea384c;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --sidebar-w:    240px;
+  --gradient-main: linear-gradient(162deg, var(--dark-blue), var(--blue) 36%, var(--light-blue) 69%, var(--green));
+  --gradient-testimonial: linear-gradient(225deg, #40deca4d 26%, #3fd0fe4d 52%, #d1e3fc80 61%);
+  --gradient-partner: linear-gradient(214deg, #000, #0058ea80 0%, #d1e3fc80 50%);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px; line-height: 140%;
+  color: var(--dark-blue); background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+body.locked { overflow: hidden; }
+img { max-width: 100%; display: block; }
+code { font-family: var(--font-mono); font-size: 0.85em; background: #f3f3f3; padding: 2px 8px; border-radius: 4px; }
+
+/* ============================================================
+   PASSWORD GATE
+   ============================================================ */
+.login-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gradient-main);
+}
+.login-gate.hidden { display: none; }
+.login-box { text-align: center; color: var(--white); }
+.login-logo { width: 400px; margin: 0 auto 8px; }
+.login-logo svg { width: 100%; height: auto; }
+.login-sub { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; margin-bottom: 36px; }
+.login-input {
+  display: block; width: 320px; margin: 0 auto 12px;
+  padding: 14px 20px; font-size: 15px; font-family: var(--font-body);
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px; color: var(--white); outline: none;
+}
+.login-input::placeholder { color: rgba(255,255,255,0.5); }
+.login-input:focus { border-color: rgba(255,255,255,0.5); }
+.login-btn {
+  display: block; width: 320px; margin: 0 auto;
+  padding: 14px 20px; font-size: 15px; font-weight: 600; font-family: var(--font-body);
+  background: var(--white); color: var(--dark-blue);
+  border: none; border-radius: 100px; cursor: pointer; transition: all 0.2s;
+}
+.login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.login-error { color: #FF6B6B; font-size: 13px; margin-top: 12px; min-height: 20px; }
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w); flex-shrink: 0;
+  position: sticky; top: 0; height: 100vh;
+  background: var(--white); border-right: 1px solid #ededed;
+  padding: 24px 16px; display: flex; flex-direction: column;
+  overflow-y: auto; z-index: 100;
+}
+.sb-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.sb-logo svg { width: 24px; height: 24px; }
+.sb-logo-text { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--dark-blue); }
+.sb-subtitle { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 24px; }
+.sb-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #aaadb0; padding: 8px 10px 4px; margin-top: 8px;
+}
+.toc { display: flex; flex-direction: column; gap: 1px; }
+.toc a {
+  display: block; padding: 7px 10px; border-radius: 6px;
+  font-size: 13px; font-weight: 500; color: var(--slate);
+  text-decoration: none; transition: all 0.15s;
+}
+.toc a:hover { background: var(--bg-blue); color: var(--blue); }
+.toc a.active { background: var(--bg-blue); color: var(--blue); font-weight: 600; }
+.sb-footer {
+  margin-top: auto; padding-top: 16px;
+  font-size: 10px; color: #aaadb0; line-height: 1.6;
+}
+.sb-version {
+  display: inline-block; padding: 2px 8px; border-radius: 100px;
+  background: var(--bg-blue); color: var(--blue);
+  font-size: 10px; font-weight: 700; margin-bottom: 4px;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+main { flex: 1; min-width: 0; padding: 48px 56px 120px; max-width: calc(1000px + 112px); }
+
+.sec { scroll-margin-top: 24px; padding-bottom: 72px; margin-bottom: 72px; }
+
+.sec-hero {
+  border-radius: 20px; padding: 40px 36px;
+  color: var(--white); margin-bottom: 48px;
+  position: relative; overflow: hidden;
+}
+.sec-hero[data-num]::after {
+  content: attr(data-num); position: absolute; top: -8px; right: 20px;
+  font-family: var(--font-display); font-size: 120px; font-weight: 800;
+  opacity: 0.1; line-height: 1; pointer-events: none;
+}
+.sec-title { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.sec-lede { font-size: 15px; line-height: 160%; opacity: 0.85; max-width: 52ch; }
+.sec-hero-tokens { background: var(--gradient-main); }
+.sec-hero-components { background: linear-gradient(162deg, var(--dark-blue), var(--blue) 50%); }
+.sec-hero-patterns { background: linear-gradient(162deg, var(--blue) 0%, var(--green) 100%); }
+
+.h2 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  color: var(--dark-blue); margin: 48px 0 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.h2::before { content: ''; width: 4px; height: 22px; background: var(--blue); border-radius: 4px; flex-shrink: 0; }
+.h3 { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--dark-blue); margin: 32px 0 8px; }
+p { margin-bottom: 16px; color: var(--slate); font-weight: 500; line-height: 160%; }
+
+/* ============================================================
+   PREVIEW BLOCK
+   ============================================================ */
+.preview-block {
+  border: 1px solid #ededed; border-radius: 20px;
+  overflow: hidden; margin: 16px 0 24px; background: var(--white);
+}
+.preview-stage {
+  padding: 32px; display: flex; flex-wrap: wrap; align-items: center;
+  gap: 16px; background: var(--white); border-bottom: 1px solid #ededed;
+}
+.preview-stage-dark { background: var(--dark-blue); border-bottom-color: rgba(255,255,255,0.1); }
+.preview-stage-blue { background: var(--blue); border-bottom-color: rgba(255,255,255,0.2); }
+.preview-stage-light { background: var(--bg-blue); }
+.preview-stage-col { flex-direction: column; align-items: flex-start; }
+.preview-code {
+  padding: 20px 24px; background: #0F172A; color: #c8c8c8;
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.7;
+  overflow-x: auto;
+}
+.preview-label {
+  padding: 12px 24px; background: #fafafa; border-bottom: 1px solid #ededed;
+  font-size: 12px; font-weight: 600; color: #aaadb0; letter-spacing: 0.06em; text-transform: uppercase;
+}
+
+/* ============================================================
+   TOKEN DISPLAYS
+   ============================================================ */
+.token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin: 16px 0 24px; }
+.token-swatch { border-radius: 20px; overflow: hidden; border: 1px solid #ededed; background: var(--white); }
+.token-swatch-color { height: 56px; }
+.token-swatch-info { padding: 10px 12px; }
+.token-swatch-name { font-size: 12px; font-weight: 700; color: var(--dark-blue); }
+.token-swatch-hex { font-size: 11px; font-weight: 500; color: #aaadb0; font-family: var(--font-mono); }
+.token-swatch-var { font-size: 10px; color: #aaadb0; font-family: var(--font-mono); }
+
+.token-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+.token-table th {
+  text-align: left; padding: 10px 16px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #aaadb0; border-bottom: 2px solid #ededed;
+}
+.token-table td { padding: 12px 16px; border-bottom: 1px solid #f3f3f3; font-weight: 500; color: var(--slate); }
+.token-table td code { padding: 2px 8px; background: var(--bg-blue); border-radius: 4px; font-size: 12px; font-weight: 500; color: var(--blue); }
+
+/* Spacing vis */
+.space-bar { display: flex; align-items: center; gap: 12px; margin: 4px 0; }
+.space-bar-fill { height: 12px; border-radius: 3px; background: var(--bg-blue); border: 1px solid #cde0fb; }
+.space-bar-label { font-size: 12px; font-weight: 600; color: var(--slate); font-family: var(--font-mono); min-width: 60px; }
+.space-bar-value { font-size: 11px; color: #aaadb0; font-family: var(--font-mono); }
+
+/* Shadow vis */
+.shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 16px 0 24px; }
+.shadow-sample {
+  height: 80px; border-radius: 20px; background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: var(--slate);
+}
+
+/* Gradient cards */
+.gradient-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0 24px; }
+.gradient-card {
+  height: 100px; border-radius: 20px; display: flex; align-items: end; padding: 12px 16px;
+  position: relative; overflow: hidden;
+}
+.gradient-card span { font-size: 12px; font-weight: 700; color: white; position: relative; z-index: 1; }
+
+/* Do / Don't */
+.guidelines-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0 24px; }
+.guideline-card { border-radius: 20px; overflow: hidden; border: 1px solid #ededed; }
+.guideline-header { padding: 10px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; }
+.guideline-do { background: #CCF5EF; color: #047857; }
+.guideline-dont { background: #FEE2E2; color: #991B1B; }
+.guideline-body { padding: 16px; font-size: 13px; color: var(--slate); line-height: 160%; background: var(--white); }
+
+/* ============================================================
+   GOGOLOOK.COM ACTUAL COMPONENTS
+   ============================================================ */
+
+/* --- Header / Navbar (gogolook.com style) --- */
+.demo-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 64px; width: 100%;
+  border-radius: 0; position: relative;
+}
+.demo-header-blue { background: var(--blue); }
+.demo-header-white { background: var(--white); border: 1px solid #ededed; border-radius: 20px; }
+.demo-header-logo { font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.demo-header-blue .demo-header-logo { color: var(--white); }
+.demo-header-white .demo-header-logo { color: var(--blue); }
+.demo-menu-btn {
+  padding: 0.5rem 1.25rem; border-radius: 100px; font-size: 14px; font-weight: 600;
+  font-family: var(--font-body); cursor: pointer; transition: all 0.2s;
+}
+.demo-menu-btn-white { background: var(--white); color: var(--dark-blue); border: none; }
+.demo-menu-btn-white:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.demo-menu-btn-blue { background: var(--blue); color: var(--white); border: none; }
+.demo-menu-btn-blue:hover { background: #0046BE; }
+.demo-nav-links { display: flex; gap: 2rem; list-style: none; }
+.demo-nav-link { font-size: 14px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+.demo-header-blue .demo-nav-link { color: rgba(255,255,255,0.7); }
+.demo-header-blue .demo-nav-link:hover { color: var(--white); }
+.demo-header-white .demo-nav-link { color: var(--slate); }
+.demo-header-white .demo-nav-link:hover { color: var(--blue); }
+
+/* --- Buttons (all pill-shaped, border-radius: 100px) --- */
+.demo-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 0.75rem 1.5rem; font-family: var(--font-body); font-weight: 600; font-size: 14px;
+  line-height: 1; border-radius: 100px; border: 1.5px solid transparent;
+  cursor: pointer; transition: all 0.2s; text-decoration: none; white-space: nowrap;
+}
+.demo-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.demo-btn-primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
+.demo-btn-primary:hover { background: #0046BE; border-color: #0046BE; box-shadow: 0 4px 16px rgba(0,88,234,0.3); }
+.demo-btn-outline { background: transparent; color: var(--blue); border-color: var(--blue); }
+.demo-btn-outline:hover { background: var(--bg-blue); }
+.demo-btn-white { background: var(--white); color: var(--dark-blue); border-color: var(--white); }
+.demo-btn-white:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+.demo-btn-ghost { background: transparent; color: var(--blue); border-color: transparent; }
+.demo-btn-ghost:hover { background: var(--bg-blue); }
+.demo-btn-sm { padding: 0.5rem 1.25rem; font-size: 13px; }
+.demo-btn-lg { padding: 1rem 2rem; font-size: 16px; }
+.demo-btn-disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+/* --- Cards (border-radius: 20px, gogolook.com style) --- */
+.demo-card {
+  background: var(--white); border: 1px solid #ededed; border-radius: 20px;
+  padding: 2rem; transition: box-shadow 0.2s, transform 0.2s;
+  width: 280px; flex-shrink: 0;
+}
+.demo-card:hover { box-shadow: 0 3px 8px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.demo-card-img {
+  margin: -2rem -2rem 1.25rem; border-radius: 20px 20px 0 0; overflow: hidden;
+  height: 140px; background: var(--bg-blue);
+  display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 32px; opacity: 0.4;
+}
+.demo-card-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--dark-blue); margin-bottom: 0.5rem; line-height: 130%; }
+.demo-card-body { font-size: 14px; color: var(--slate); line-height: 160%; }
+.demo-card-footer { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ededed; }
+.demo-card-blue-bg { background: var(--bg-blue); border: none; }
+.demo-card-partner {
+  background: var(--gradient-testimonial); border: none;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 160px;
+}
+
+/* --- Accordion (gogolook.com Products page) --- */
+.demo-accordion { width: 100%; }
+.demo-accordion-item { border-bottom: 1px dashed #c8c8c8; }
+.demo-accordion-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 0; cursor: pointer; transition: color 0.2s;
+}
+.demo-accordion-title {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+  color: var(--blue); line-height: 120%;
+}
+.demo-accordion-icon {
+  width: 24px; height: 24px; color: var(--blue); transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.demo-accordion-item.open .demo-accordion-icon { transform: rotate(180deg); }
+.demo-accordion-body {
+  padding: 0 0 1.5rem; font-size: 14px; color: var(--slate); line-height: 160%;
+  display: none;
+}
+.demo-accordion-item.open .demo-accordion-body { display: block; }
+
+/* --- Stats / KPIs (gradient bg, large numbers) --- */
+.demo-stats {
+  display: flex; gap: 3rem; padding: 3rem; border-radius: 20px;
+  background: var(--gradient-main); color: var(--white); width: 100%;
+}
+.demo-stat-number {
+  font-family: var(--font-display); font-size: 4rem; font-weight: 700;
+  line-height: 90%; margin-bottom: 0.5rem;
+}
+.demo-stat-label { font-size: 14px; opacity: 0.7; line-height: 140%; }
+
+/* --- Newsletter Form (underline style like gogolook.com) --- */
+.demo-form-underline { width: 100%; max-width: 400px; }
+.demo-input-underline {
+  width: 100%; padding: 12px 0; font-size: 1.25rem; font-family: var(--font-body);
+  color: var(--white); background: transparent;
+  border: none; border-bottom: 1px solid rgba(255,255,255,0.3);
+  outline: none; transition: border-color 0.2s;
+}
+.demo-input-underline::placeholder { color: rgba(255,255,255,0.4); }
+.demo-input-underline:focus { border-bottom-color: var(--white); }
+.demo-input-underline-dark {
+  color: var(--dark-blue); border-bottom-color: #c8c8c8;
+}
+.demo-input-underline-dark::placeholder { color: #aaadb0; }
+.demo-input-underline-dark:focus { border-bottom-color: var(--blue); }
+
+/* --- Boxed Form Input (contact page style) --- */
+.demo-input-boxed {
+  width: 100%; padding: 10px 12px; font-size: 14px; font-family: var(--font-body);
+  color: var(--dark-blue); background: var(--white);
+  border: 1px solid #c8c8c8; border-radius: 0;
+  outline: none; transition: border-color 0.2s;
+}
+.demo-input-boxed:focus { border-color: #3898EC; }
+.demo-input-boxed::placeholder { color: #aaadb0; }
+
+/* --- Footer (Blue bg, giant logo watermark — matches gogolook.com live) --- */
+.demo-footer {
+  background: var(--blue); color: var(--white); padding: 4rem 5rem;
+  border-radius: 0; width: 100%; position: relative; overflow: hidden;
+}
+.demo-footer-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 3rem;
+  margin-bottom: 0; position: relative; z-index: 1;
+}
+.demo-footer-heading {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.25rem;
+  margin-bottom: 1rem; color: var(--white);
+}
+.demo-footer-link {
+  display: block; font-size: 1rem; color: rgba(255,255,255,0.7);
+  text-decoration: none; padding: 6px 0; transition: color 0.2s;
+}
+.demo-footer-link:hover { color: var(--white); }
+.demo-footer-watermark {
+  color: rgba(255,255,255,0.15);
+  position: relative; z-index: 0; margin: 2.5rem 0 2rem; user-select: none;
+}
+.demo-footer-watermark svg { display: block; width: 100%; height: auto; }
+.demo-footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; color: rgba(255,255,255,0.7); position: relative; z-index: 1;
+}
+.demo-footer-bottom-center { display: flex; align-items: center; gap: 1.5rem; }
+.demo-footer-bottom-links { display: flex; gap: 1.5rem; }
+.demo-footer-bottom-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+.demo-footer-bottom-links a:hover { color: var(--white); }
+.demo-footer-social { display: flex; gap: 16px; }
+.demo-footer-social-icon {
+  width: 36px; height: 36px; border-radius: 6px; border: none;
+  background: var(--white); color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; transition: all 0.2s; cursor: pointer;
+}
+.demo-footer-social-icon:hover { opacity: 0.85; }
+.demo-footer-contact-row {
+  display: flex; align-items: flex-start; gap: 3rem; margin-top: 2rem;
+}
+@media (max-width: 767px) {
+  .demo-footer { padding: 3rem 1.5rem; }
+  .demo-footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .demo-footer-contact-row { flex-direction: column; gap: 1.5rem; }
+  .demo-footer-bottom { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
+
+/* --- Logo Bar (product logos) --- */
+.demo-logo-bar {
+  display: flex; align-items: center; justify-content: center; gap: 2.5rem;
+  padding: 1.5rem 0; width: 100;
+}
+.demo-logo-item { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: #aaadb0; white-space: nowrap; }
+
+/* --- Feature Icons (What We Do section) --- */
+.demo-feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; width: 100%; }
+.demo-feature-item { }
+.demo-feature-icon {
+  width: 48px; height: 48px; border-radius: 12px; background: var(--bg-blue);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem; font-size: 20px; color: var(--blue);
+}
+.demo-feature-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--dark-blue); margin-bottom: 0.5rem; line-height: 130%; }
+.demo-feature-desc { font-size: 14px; color: var(--slate); line-height: 160%; }
+
+/* --- Badges (gogolook.com style) --- */
+.demo-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 0.25rem 0.75rem; font-size: 12px; font-weight: 600;
+  border-radius: 100px; white-space: nowrap;
+}
+.demo-badge-blue { background: var(--bg-blue); color: var(--blue); }
+.demo-badge-green { background: #CCF5EF; color: #059669; }
+.demo-badge-red { background: #FEE2E2; color: var(--red); }
+.demo-badge-dark { background: var(--dark-blue); color: var(--white); }
+
+/* --- Carousel Nav (circle arrow buttons) --- */
+.demo-carousel-nav { display: flex; gap: 12px; }
+.demo-carousel-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--blue);
+  background: transparent; color: var(--blue); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s;
+}
+.demo-carousel-btn:hover { background: var(--blue); color: var(--white); }
+.demo-carousel-btn-filled { background: var(--blue); color: var(--white); border-color: var(--blue); }
+.demo-carousel-btn-filled:hover { background: #0046BE; }
+
+/* --- Locale Toggle --- */
+.demo-locale { display: flex; gap: 8px; }
+.demo-locale-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid #ededed;
+  background: var(--white); color: var(--dark-blue); font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: all 0.2s;
+}
+.demo-locale-btn:hover { border-color: var(--blue); color: var(--blue); }
+.demo-locale-btn-active { border-color: var(--blue); color: var(--blue); background: var(--bg-blue); }
+
+/* --- Partner Card (gradient bg like gogolook.com) --- */
+.demo-partner-card {
+  background: var(--gradient-testimonial); border-radius: 20px;
+  padding: 2rem; min-height: 180px; display: flex; flex-direction: column;
+  justify-content: flex-end;
+}
+.demo-partner-name { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--dark-blue); }
+
+/* --- Checkbox (gogolook.com cookie/form style) --- */
+.demo-checkbox-wrap { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.demo-checkbox-box {
+  width: 16px; height: 16px; border: 2px solid #c8c8c8; border-radius: 2px;
+  flex-shrink: 0; margin-top: 2px; transition: all 0.15s; background: var(--white);
+}
+.demo-checkbox-checked { background: var(--blue); border-color: var(--blue); }
+.demo-checkbox-label { font-size: 14px; color: var(--slate); line-height: 140%; }
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+.mobile-toggle {
+  display: none; position: fixed; top: 12px; left: 12px; z-index: 200;
+  width: 40px; height: 40px; border-radius: 100px; border: none;
+  background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer; font-size: 18px;
+}
+.mobile-overlay { display: none; position: fixed; inset: 0; z-index: 99; background: rgba(0,0,0,0.3); }
+
+@media (max-width: 1024px) {
+  .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+  .sidebar { position: fixed; left: -280px; width: 260px; transition: left 0.25s; box-shadow: 4px 0 24px rgba(0,0,0,0.1); }
+  .sidebar.open { left: 0; }
+  main { padding: 48px 24px 120px; }
+  .demo-feature-grid { grid-template-columns: 1fr 1fr; }
+  .demo-stats { flex-direction: column; gap: 2rem; }
+  .demo-footer-grid { grid-template-columns: 1fr 1fr; }
+  .guidelines-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ============ PASSWORD GATE ============ -->
+<div class="login-gate" id="loginGate">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 1532.9 344.5" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1308.97,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.55,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.46,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M1242.95,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="white"/>
+        <path d="M828.25,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M762.23,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="white"/>
+        <path d="M1107.38,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M1041.37,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="white"/>
+        <path d="M413.76,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M347.74,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="white"/>
+        <path d="M550.81,342.5c-21.66-.02-41.96-7.3-58.26-19.81s-28.59-30.23-34.21-51.15c-.27-1.02-.11-2.06.38-2.9s1.3-1.51,2.32-1.78c.16-.04.32-.08.49-.1s.33-.03.5-.03h35.55c.76,0,1.48.23,2.09.63s1.1.97,1.41,1.67c2.72,6.07,6.51,11.53,11.12,16.17,4.62,4.64,10.06,8.44,16.12,11.2,3.52,1.61,7.19,2.83,10.95,3.65s7.61,1.23,11.47,1.23c3.22-.01,6.42-.29,9.58-.83s6.28-1.33,9.32-2.38c9.63-3.27,18.44-10.47,24.88-19.47,6.45-9,10.53-19.78,10.72-30.21l.11-15.98-.74.49-.74.49c-21.95,14.59-47.74,18.9-71.69,14.08-23.95-4.82-46.06-18.79-60.65-40.74-14.59-21.95-18.9-47.74-14.08-71.69,4.82-23.95,18.79-46.06,40.74-60.65,21.95-14.59,47.74-18.9,71.69-14.08s46.06,18.79,60.65,40.74c5.2,7.83,9.19,16.34,11.88,25.24,2.69,8.9,4.08,18.2,4.08,27.6v94.51c-.45,26.1-11.31,49.62-28.59,66.62-17.28,17-40.97,27.47-67.08,27.49M551.01,99.55c-15,0-28.58,6.08-38.42,15.91-9.83,9.83-15.91,23.41-15.91,38.42s6.08,28.58,15.91,38.42c9.83,9.83,23.41,15.91,38.42,15.91s28.58-6.08,38.42-15.91c9.83-9.83,15.91-23.41,15.91-38.42h0c-.02-14.99-6.1-28.57-15.93-38.39-9.83-9.83-23.4-15.91-38.4-15.93" fill="white"/>
+        <path d="M233.91,110.67c-23.06,0-50.54,0-73.6,0-1.97-.03-3.68,1.67-3.65,3.65,0,0,0,7.75,0,7.75v23.26c-.03,1.97,1.67,3.68,3.65,3.65,10.42,0,22.85,0,33.27,0-5.74,22.2-21.69,41.14-43.19,49.32h0c-60.23,21.79-113.99-28.88-102.66-90.39,9.57-55.29,73.79-82.23,119.21-48.88,2.75,2.11,5.35,4.41,7.77,6.89,2.68,2.58,4.82,6.63,9.07,6.45,5.04.02,15.28-.01,20.33,0,5.03.02,15.29-.01,20.33,0,2.67.07,4.51-2.99,3.24-5.33-2.29-4.51-4.85-8.85-7.67-13.02C188.62,6.81,128.64-10.63,76.51,10.99,6.26,40.71-20.11,127.99,21.98,191.6c31.9,48.33,92.51,67.11,146.18,45.83,43.52-17.67,70.6-63.57,69.39-110.12-.02-2.9.02-6.85,0-9.75.11-2.89.3-6.78-3.65-6.9Z" fill="white"/>
+        <path d="M919.7,243.44h-35.73c-1.01,0-1.92-.41-2.58-1.07s-1.07-1.57-1.07-2.58V8.33c0-1.01.41-1.92,1.07-2.58.66-.66,1.57-1.07,2.58-1.07h35.73c1.01,0,1.92.41,2.58,1.07.66.66,1.07,1.57,1.07,2.58v231.46c0,1.01-.41,1.92-1.07,2.58s-1.57,1.07-2.58,1.07Z" fill="white"/>
+        <path d="M1454.93,144.91l36.06-38.61,36.06-38.61c1.09-1.17,1.22-2.7.68-3.94s-1.75-2.19-3.34-2.19h-40.48c-1.02,0-2.01.21-2.93.61s-1.74.99-2.43,1.74l-36.94,40.05-36.94,40.05V8.34c0-1.01-.41-1.92-1.07-2.58-.66-.66-1.57-1.07-2.58-1.07h-35.73c-1.01,0-1.92.41-2.58,1.07s-1.07,1.57-1.07,2.58v231.46c0,1.01.41,1.92,1.07,2.58s1.57,1.07,2.58,1.07h35.73c1.01,0,1.92-.41,2.58-1.07s1.07-1.57,1.07-2.58v-40.89h0l11.77-12.56,11.77-12.56,26.42,33.44,26.42,33.44c.69.88,1.56,1.57,2.54,2.04s2.06.73,3.18.73h40.46c1.53,0,2.73-.89,3.29-2.08s.51-2.67-.46-3.87l-37.57-46.29-37.57-46.29Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="login-sub">Web Design System</div>
+    <input type="password" class="login-input" id="loginInput" placeholder="Enter password" autocomplete="off">
+    <button class="login-btn" id="loginBtn">Enter</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ============ APP SHELL ============ -->
+<button class="mobile-toggle" id="mobileToggle">&#9776;</button>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<div class="shell">
+<nav class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <svg viewBox="0 0 1532.9 344.5" width="180" height="40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1308.97,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.55,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.46,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M1242.95,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="#0058EA"/>
+      <path d="M828.25,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M762.23,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="#0058EA"/>
+      <path d="M1107.38,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M1041.37,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="#0058EA"/>
+      <path d="M413.76,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M347.74,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="#0058EA"/>
+      <path d="M550.81,342.5c-21.66-.02-41.96-7.3-58.26-19.81s-28.59-30.23-34.21-51.15c-.27-1.02-.11-2.06.38-2.9s1.3-1.51,2.32-1.78c.16-.04.32-.08.49-.1s.33-.03.5-.03h35.55c.76,0,1.48.23,2.09.63s1.1.97,1.41,1.67c2.72,6.07,6.51,11.53,11.12,16.17,4.62,4.64,10.06,8.44,16.12,11.2,3.52,1.61,7.19,2.83,10.95,3.65s7.61,1.23,11.47,1.23c3.22-.01,6.42-.29,9.58-.83s6.28-1.33,9.32-2.38c9.63-3.27,18.44-10.47,24.88-19.47,6.45-9,10.53-19.78,10.72-30.21l.11-15.98-.74.49-.74.49c-21.95,14.59-47.74,18.9-71.69,14.08-23.95-4.82-46.06-18.79-60.65-40.74-14.59-21.95-18.9-47.74-14.08-71.69,4.82-23.95,18.79-46.06,40.74-60.65,21.95-14.59,47.74-18.9,71.69-14.08s46.06,18.79,60.65,40.74c5.2,7.83,9.19,16.34,11.88,25.24,2.69,8.9,4.08,18.2,4.08,27.6v94.51c-.45,26.1-11.31,49.62-28.59,66.62-17.28,17-40.97,27.47-67.08,27.49M551.01,99.55c-15,0-28.58,6.08-38.42,15.91-9.83,9.83-15.91,23.41-15.91,38.42s6.08,28.58,15.91,38.42c9.83,9.83,23.41,15.91,38.42,15.91s28.58-6.08,38.42-15.91c9.83-9.83,15.91-23.41,15.91-38.42h0c-.02-14.99-6.1-28.57-15.93-38.39-9.83-9.83-23.4-15.91-38.4-15.93" fill="#0058EA"/>
+      <path d="M233.91,110.67c-23.06,0-50.54,0-73.6,0-1.97-.03-3.68,1.67-3.65,3.65,0,0,0,7.75,0,7.75v23.26c-.03,1.97,1.67,3.68,3.65,3.65,10.42,0,22.85,0,33.27,0-5.74,22.2-21.69,41.14-43.19,49.32h0c-60.23,21.79-113.99-28.88-102.66-90.39,9.57-55.29,73.79-82.23,119.21-48.88,2.75,2.11,5.35,4.41,7.77,6.89,2.68,2.58,4.82,6.63,9.07,6.45,5.04.02,15.28-.01,20.33,0,5.03.02,15.29-.01,20.33,0,2.67.07,4.51-2.99,3.24-5.33-2.29-4.51-4.85-8.85-7.67-13.02C188.62,6.81,128.64-10.63,76.51,10.99,6.26,40.71-20.11,127.99,21.98,191.6c31.9,48.33,92.51,67.11,146.18,45.83,43.52-17.67,70.6-63.57,69.39-110.12-.02-2.9.02-6.85,0-9.75.11-2.89.3-6.78-3.65-6.9Z" fill="#0058EA"/>
+      <path d="M919.7,243.44h-35.73c-1.01,0-1.92-.41-2.58-1.07s-1.07-1.57-1.07-2.58V8.33c0-1.01.41-1.92,1.07-2.58.66-.66,1.57-1.07,2.58-1.07h35.73c1.01,0,1.92.41,2.58,1.07.66.66,1.07,1.57,1.07,2.58v231.46c0,1.01-.41,1.92-1.07,2.58s-1.57,1.07-2.58,1.07Z" fill="#0058EA"/>
+      <path d="M1454.93,144.91l36.06-38.61,36.06-38.61c1.09-1.17,1.22-2.7.68-3.94s-1.75-2.19-3.34-2.19h-40.48c-1.02,0-2.01.21-2.93.61s-1.74.99-2.43,1.74l-36.94,40.05-36.94,40.05V8.34c0-1.01-.41-1.92-1.07-2.58-.66-.66-1.57-1.07-2.58-1.07h-35.73c-1.01,0-1.92.41-2.58,1.07s-1.07,1.57-1.07,2.58v231.46c0,1.01.41,1.92,1.07,2.58s1.57,1.07,2.58,1.07h35.73c1.01,0,1.92-.41,2.58-1.07s1.07-1.57,1.07-2.58v-40.89h0l11.77-12.56,11.77-12.56,26.42,33.44,26.42,33.44c.69.88,1.56,1.57,2.54,2.04s2.06.73,3.18.73h40.46c1.53,0,2.73-.89,3.29-2.08s.51-2.67-.46-3.87l-37.57-46.29-37.57-46.29Z" fill="#0058EA"/>
+    </svg>
+  </div>
+  <div class="sb-subtitle">Web Design System</div>
+
+  <div class="sb-section-label">Tokens</div>
+  <div class="toc">
+    <a href="#colors">Colors</a>
+    <a href="#typography">Typography</a>
+    <a href="#spacing">Spacing &amp; Layout</a>
+    <a href="#radius">Border Radius</a>
+    <a href="#shadows">Shadows</a>
+    <a href="#gradients">Gradients</a>
+  </div>
+
+  <div class="sb-section-label">Components</div>
+  <div class="toc">
+    <a href="#header">Header / Navbar</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#cards">Cards</a>
+    <a href="#accordion">Accordion</a>
+    <a href="#stats">Stats / KPIs</a>
+    <a href="#features">Feature Grid</a>
+    <a href="#forms">Forms &amp; Inputs</a>
+    <a href="#badges">Badges</a>
+    <a href="#carousel">Carousel Nav</a>
+    <a href="#locale">Locale Toggle</a>
+    <a href="#partners">Partner Cards</a>
+    <a href="#logos">Logo Bar</a>
+    <a href="#footer">Footer</a>
+  </div>
+
+  <div class="sb-section-label">Guidelines</div>
+  <div class="toc">
+    <a href="#breakpoints">Breakpoints</a>
+    <a href="#accessibility">Accessibility</a>
+  </div>
+
+  <div class="sb-footer">
+    <div class="sb-version">v1.0</div>
+    <div>June 2026</div>
+    <div style="margin-top:8px;">CONFIDENTIAL &copy; 2026 Gogolook</div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ======== OVERVIEW ======== -->
+<section class="sec" id="overview">
+  <div class="sec-hero sec-hero-tokens" data-num="DS">
+    <div class="sec-title">Gogolook Web Design System</div>
+    <div class="sec-lede">Component library and design tokens extracted from gogolook.com. Every component in this system is a faithful reproduction of the patterns used on the live site.</div>
+  </div>
+  <p>Source: <strong>gogolook.com</strong> Webflow CSS &mdash; all border-radius, padding, font-size, color, and layout values are extracted from the production stylesheet.</p>
+  <table class="token-table">
+    <tr><td><strong>Buttons</strong></td><td><code>border-radius: 100px</code> (pill-shaped, always)</td></tr>
+    <tr><td><strong>Cards</strong></td><td><code>border-radius: 20px</code></td></tr>
+    <tr><td><strong>H1</strong></td><td><code>5.5rem</code> / Plus Jakarta Sans 700</td></tr>
+    <tr><td><strong>H2</strong></td><td><code>4rem</code> / Plus Jakarta Sans 700</td></tr>
+    <tr><td><strong>Container</strong></td><td><code>90rem</code> (1440px) max-width</td></tr>
+    <tr><td><strong>Section padding</strong></td><td><code>6rem 5rem</code></td></tr>
+    <tr><td><strong>Gradient angle</strong></td><td><code>162deg</code> (4-stop: Shadow &rarr; Blue &rarr; Light Blue &rarr; Green)</td></tr>
+  </table>
+</section>
+
+<!-- ======== COLORS ======== -->
+<section class="sec" id="colors">
+  <div class="h2">Colors</div>
+  <p>Five brand colors defined as CSS custom properties in the Webflow stylesheet, plus a light blue background and neutral grays.</p>
+  <div class="h3">Brand Palette (CSS Variables)</div>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#0058EA;"></div><div class="token-swatch-info"><div class="token-swatch-name">Blue</div><div class="token-swatch-hex">#0058EA</div><div class="token-swatch-var">--blue</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#0F2647;"></div><div class="token-swatch-info"><div class="token-swatch-name">Dark Blue</div><div class="token-swatch-hex">#0F2647</div><div class="token-swatch-var">--dark-blue</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#008CF4;"></div><div class="token-swatch-info"><div class="token-swatch-name">Light Blue</div><div class="token-swatch-hex">#008CF4</div><div class="token-swatch-var">--light-blue</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#01D3B8;"></div><div class="token-swatch-info"><div class="token-swatch-name">Green</div><div class="token-swatch-hex">#01D3B8</div><div class="token-swatch-var">--green</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#E7F1FD;"></div><div class="token-swatch-info"><div class="token-swatch-name">BG Blue</div><div class="token-swatch-hex">#E7F1FD</div><div class="token-swatch-var">--bg-blue</div></div></div>
+  </div>
+  <div class="h3">UI Grays</div>
+  <div class="token-grid" style="grid-template-columns:repeat(auto-fill,minmax(100px,1fr));">
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#fafafa;border-bottom:1px solid #eee;"></div><div class="token-swatch-info"><div class="token-swatch-name">Off White</div><div class="token-swatch-hex">#FAFAFA</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#f3f3f3;border-bottom:1px solid #eee;"></div><div class="token-swatch-info"><div class="token-swatch-name">Light Gray</div><div class="token-swatch-hex">#F3F3F3</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#ededed;"></div><div class="token-swatch-info"><div class="token-swatch-name">Border</div><div class="token-swatch-hex">#EDEDED</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#c8c8c8;"></div><div class="token-swatch-info"><div class="token-swatch-name">Mid Gray</div><div class="token-swatch-hex">#C8C8C8</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#aaadb0;"></div><div class="token-swatch-info"><div class="token-swatch-name">Muted</div><div class="token-swatch-hex">#AAADB0</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#5d6c7b;"></div><div class="token-swatch-info"><div class="token-swatch-name">Slate</div><div class="token-swatch-hex">#5D6C7B</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#333;"></div><div class="token-swatch-info"><div class="token-swatch-name">Dark</div><div class="token-swatch-hex">#333333</div></div></div>
+    <div class="token-swatch"><div class="token-swatch-color" style="background:#222;"></div><div class="token-swatch-info"><div class="token-swatch-name">Charcoal</div><div class="token-swatch-hex">#222222</div></div></div>
+  </div>
+</section>
+
+<!-- ======== TYPOGRAPHY ======== -->
+<section class="sec" id="typography">
+  <div class="h2">Typography</div>
+  <div class="preview-block">
+    <div class="preview-label">Type Scale (from Webflow CSS)</div>
+    <div class="preview-stage preview-stage-col" style="gap:20px;">
+      <div style="font-family:var(--font-display);font-size:5.5rem;font-weight:700;letter-spacing:-0.03em;color:var(--blue);line-height:100%;">H1 &middot; 5.5rem</div>
+      <div style="font-family:var(--font-display);font-size:4rem;font-weight:700;letter-spacing:-0.02em;color:var(--blue);line-height:120%;">H2 &middot; 4rem</div>
+      <div style="font-family:var(--font-display);font-size:2.625rem;font-weight:700;color:var(--blue);line-height:120%;">H3 &middot; 2.625rem</div>
+      <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--dark-blue);line-height:130%;">H4 &middot; 1.5rem</div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--dark-blue);line-height:140%;">H5 &middot; 1.2rem</div>
+      <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--dark-blue);line-height:140%;">H6 &middot; 1rem</div>
+      <div style="font-family:var(--font-body);font-size:1.25rem;color:var(--slate);line-height:160%;">Body Large &middot; 1.25rem / Inter</div>
+      <div style="font-family:var(--font-body);font-size:1rem;color:var(--slate);line-height:160%;">Body &middot; 1rem / Inter</div>
+      <div style="font-family:var(--font-body);font-size:0.875rem;color:#aaadb0;line-height:140%;">Small &middot; 0.875rem</div>
+      <div style="font-family:var(--font-body);font-size:0.75rem;color:#aaadb0;line-height:140%;">XS &middot; 0.75rem</div>
+    </div>
+  </div>
+  <p><strong>Key pattern:</strong> H1–H3 headings use Gogolook Blue color. H4–H6 use Dark Blue. Body text uses Slate gray. All headings are Plus Jakarta Sans 700.</p>
+</section>
+
+<!-- ======== SPACING ======== -->
+<section class="sec" id="spacing">
+  <div class="h2">Spacing &amp; Layout</div>
+  <div class="h3">Section Padding</div>
+  <table class="token-table">
+    <thead><tr><th>Context</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Section (landscape)</td><td><code>6rem 5rem</code></td></tr>
+      <tr><td>Section (vertical)</td><td><code>6rem 0</code></td></tr>
+      <tr><td>Container max-width</td><td><code>90rem</code> (1440px)</td></tr>
+      <tr><td>Content max-width</td><td><code>66rem</code> (1056px)</td></tr>
+    </tbody>
+  </table>
+  <div class="h3">Gap Scale</div>
+  <div style="margin:16px 0 24px;">
+    <div class="space-bar"><div class="space-bar-label">0.5rem</div><div class="space-bar-fill" style="width:8px;"></div><div class="space-bar-value">8px</div></div>
+    <div class="space-bar"><div class="space-bar-label">0.75rem</div><div class="space-bar-fill" style="width:12px;"></div><div class="space-bar-value">12px</div></div>
+    <div class="space-bar"><div class="space-bar-label">1rem</div><div class="space-bar-fill" style="width:16px;"></div><div class="space-bar-value">16px</div></div>
+    <div class="space-bar"><div class="space-bar-label">1.5rem</div><div class="space-bar-fill" style="width:24px;"></div><div class="space-bar-value">24px</div></div>
+    <div class="space-bar"><div class="space-bar-label">2rem</div><div class="space-bar-fill" style="width:32px;"></div><div class="space-bar-value">32px</div></div>
+    <div class="space-bar"><div class="space-bar-label">2.5rem</div><div class="space-bar-fill" style="width:40px;"></div><div class="space-bar-value">40px</div></div>
+    <div class="space-bar"><div class="space-bar-label">3rem</div><div class="space-bar-fill" style="width:48px;"></div><div class="space-bar-value">48px</div></div>
+    <div class="space-bar"><div class="space-bar-label">5rem</div><div class="space-bar-fill" style="width:80px;"></div><div class="space-bar-value">80px</div></div>
+    <div class="space-bar"><div class="space-bar-label">6rem</div><div class="space-bar-fill" style="width:96px;"></div><div class="space-bar-value">96px</div></div>
+  </div>
+</section>
+
+<!-- ======== BORDER RADIUS ======== -->
+<section class="sec" id="radius">
+  <div class="h2">Border Radius</div>
+  <table class="token-table">
+    <thead><tr><th>Value</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td><code>0</code></td><td>Form inputs (Webflow default)</td></tr>
+      <tr><td><code>4px</code></td><td>Small components, checkboxes</td></tr>
+      <tr><td><code>20px</code></td><td>Cards, images, sections, footer</td></tr>
+      <tr><td><code>100px</code></td><td>All buttons, pills, badges, tags</td></tr>
+      <tr><td><code>500px+</code></td><td>Fully rounded circles</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Key rule:</strong> Gogolook.com uses only two main radius values: <code>20px</code> for containers and <code>100px</code> for interactive pills. There are no 8px or 12px radius values.</p>
+</section>
+
+<!-- ======== SHADOWS ======== -->
+<section class="sec" id="shadows">
+  <div class="h2">Shadows</div>
+  <div class="shadow-grid">
+    <div class="shadow-sample" style="box-shadow:0 0 0 1px #0000001a,0 1px 3px #0000001a;">Badge</div>
+    <div class="shadow-sample" style="box-shadow:0 3px 8px #00000026;">Card</div>
+    <div class="shadow-sample" style="box-shadow:0 0 3px #3336;">Slider</div>
+  </div>
+  <p>Gogolook.com uses minimal shadows. Most elevation comes from background color contrast (white cards on light blue bg) rather than drop shadows.</p>
+</section>
+
+<!-- ======== GRADIENTS ======== -->
+<section class="sec" id="gradients">
+  <div class="h2">Gradients</div>
+  <div class="gradient-grid">
+    <div class="gradient-card" style="background:var(--gradient-main);"><span>Main (162deg, 4-stop)</span></div>
+    <div class="gradient-card" style="background:var(--gradient-testimonial);"><span>Testimonial / Partner</span></div>
+    <div class="gradient-card" style="background:linear-gradient(162deg,var(--dark-blue),var(--blue) 34%,var(--light-blue) 65%,var(--green));"><span>Alternate (shifted stops)</span></div>
+    <div class="gradient-card" style="background:linear-gradient(90deg,var(--bg-blue),#e7f1fd00);"><span>Fade Left</span></div>
+  </div>
+  <p><strong>Key rule:</strong> Main gradient is always <code>162deg</code>, NOT 135deg. Four stops: Shadow Blue &rarr; Blue &rarr; Light Blue &rarr; Green.</p>
+</section>
+
+<!-- ======== HEADER / NAVBAR ======== -->
+<section class="sec" id="header">
+  <div class="h2">Header / Navbar</div>
+  <p>gogolook.com uses a solid blue header with white "Gogolook" wordmark and a white pill "Menu" button. No visible navigation links — all pages use the same compact header.</p>
+
+  <div class="h3">Blue Header (Primary)</div>
+  <div class="preview-block">
+    <div class="preview-stage" style="padding:0;">
+      <div class="demo-header demo-header-blue">
+        <span class="demo-header-logo">Gogolook</span>
+        <button class="demo-menu-btn demo-menu-btn-white">Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="h3">White Header (Alternate)</div>
+  <div class="preview-block">
+    <div class="preview-stage" style="padding:16px;">
+      <div class="demo-header demo-header-white">
+        <span class="demo-header-logo">Gogolook</span>
+        <div style="display:flex;gap:24px;align-items:center;">
+          <a class="demo-nav-link" style="color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;">Products</a>
+          <a class="demo-nav-link" style="color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;">About</a>
+          <a class="demo-nav-link" style="color:var(--slate);text-decoration:none;font-size:14px;font-weight:500;">Careers</a>
+          <button class="demo-menu-btn demo-menu-btn-blue">Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== BUTTONS ======== -->
+<section class="sec" id="buttons">
+  <div class="h2">Buttons</div>
+  <p>All buttons are pill-shaped (<code>border-radius: 100px</code>). Four variants: Primary (filled blue), Outline, White, and Ghost. Most CTAs include an arrow icon (<code>&rarr;</code>).</p>
+
+  <div class="h3">Variants</div>
+  <div class="preview-block">
+    <div class="preview-stage">
+      <button class="demo-btn demo-btn-primary">Join Us <span>&rarr;</span></button>
+      <button class="demo-btn demo-btn-outline">For Personal <span>&rarr;</span></button>
+      <button class="demo-btn demo-btn-outline">For Business <span>&rarr;</span></button>
+      <button class="demo-btn demo-btn-ghost">Learn More <span>&rarr;</span></button>
+    </div>
+    <div class="preview-stage preview-stage-blue">
+      <button class="demo-btn demo-btn-white">Send <span>&rarr;</span></button>
+      <button class="demo-btn" style="background:transparent;color:white;border-color:rgba(255,255,255,0.3);">Contact Us <span>&rarr;</span></button>
+    </div>
+  </div>
+
+  <div class="h3">Sizes</div>
+  <div class="preview-block">
+    <div class="preview-stage" style="align-items:center;">
+      <button class="demo-btn demo-btn-primary demo-btn-sm">Small</button>
+      <button class="demo-btn demo-btn-primary">Default</button>
+      <button class="demo-btn demo-btn-primary demo-btn-lg">Large</button>
+    </div>
+  </div>
+
+  <div class="h3">States</div>
+  <div class="preview-block">
+    <div class="preview-stage">
+      <button class="demo-btn demo-btn-primary">Normal</button>
+      <button class="demo-btn demo-btn-primary" style="background:#0046BE;border-color:#0046BE;box-shadow:0 4px 16px rgba(0,88,234,0.3);">Hover</button>
+      <button class="demo-btn demo-btn-primary demo-btn-disabled">Disabled</button>
+    </div>
+  </div>
+
+  <div class="guidelines-grid">
+    <div class="guideline-card"><div class="guideline-header guideline-do">DO</div><div class="guideline-body">Always include an arrow (&rarr;) in CTA buttons. Use Outline style for dual CTAs side-by-side ("For Personal" / "For Business").</div></div>
+    <div class="guideline-card"><div class="guideline-header guideline-dont">DON'T</div><div class="guideline-body">Never use square or small-radius buttons. Never use more than one Primary filled button in the same section.</div></div>
+  </div>
+</section>
+
+<!-- ======== CARDS ======== -->
+<section class="sec" id="cards">
+  <div class="h2">Cards</div>
+  <p>All cards use <code>border-radius: 20px</code>. Three main styles: default (white with border), blue background, and gradient partner card.</p>
+
+  <div class="preview-block">
+    <div class="preview-stage" style="gap:20px;align-items:stretch;">
+      <div class="demo-card">
+        <div class="demo-card-img">&#9733;</div>
+        <div class="demo-card-title">News Card</div>
+        <div class="demo-card-body">Article preview with image, heading, and excerpt. Used on Newsroom page.</div>
+      </div>
+      <div class="demo-card demo-card-blue-bg">
+        <div class="demo-card-title">Feature Card</div>
+        <div class="demo-card-body">Light blue background, no border. Used for "What We Do" content blocks.</div>
+      </div>
+      <div class="demo-partner-card">
+        <div class="demo-partner-name">Partner Name</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== ACCORDION ======== -->
+<section class="sec" id="accordion">
+  <div class="h2">Accordion</div>
+  <p>Products page uses large blue heading accordions with dashed dividers and chevron icons. Headings are <code>2rem</code> Plus Jakarta Sans 700 in Gogolook Blue.</p>
+
+  <div class="preview-block">
+    <div class="preview-stage preview-stage-light preview-stage-col" style="padding:0 2rem;">
+      <div class="demo-accordion">
+        <div class="demo-accordion-item open" onclick="this.classList.toggle('open')">
+          <div class="demo-accordion-header">
+            <span class="demo-accordion-title">Trust &amp; Safety</span>
+            <svg class="demo-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="demo-accordion-body">Whoscall, ScamAdviser, and other anti-fraud solutions protecting users from malicious calls and messages globally.</div>
+        </div>
+        <div class="demo-accordion-item" onclick="this.classList.toggle('open')">
+          <div class="demo-accordion-header">
+            <span class="demo-accordion-title">Innovation &amp; AI</span>
+            <svg class="demo-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="demo-accordion-body">JUJI and AI-powered financial technology products leveraging advanced data analytics.</div>
+        </div>
+        <div class="demo-accordion-item" onclick="this.classList.toggle('open')">
+          <div class="demo-accordion-header">
+            <span class="demo-accordion-title">Financial Empowerment</span>
+            <svg class="demo-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="demo-accordion-body">Roo.cash and lending products providing accessible financial services in emerging markets.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== STATS / KPIs ======== -->
+<section class="sec" id="stats">
+  <div class="h2">Stats / KPIs</div>
+  <p>Large numbers on the main gradient background. Numbers use Plus Jakarta Sans 700 at <code>4rem</code>, line-height 90%.</p>
+
+  <div class="preview-block">
+    <div class="preview-stage" style="padding:0;">
+      <div class="demo-stats">
+        <div>
+          <div class="demo-stat-number">10B<span style="font-size:2rem;">+</span></div>
+          <div class="demo-stat-label">Malicious Calls Blocked</div>
+        </div>
+        <div>
+          <div class="demo-stat-number">5M<span style="font-size:2rem;">+</span></div>
+          <div class="demo-stat-label">Fake Data Detected</div>
+        </div>
+        <div>
+          <div class="demo-stat-number">400<span style="font-size:2rem;">+</span></div>
+          <div class="demo-stat-label">Anti-Scam Partners</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FEATURE GRID ======== -->
+<section class="sec" id="features">
+  <div class="h2">Feature Grid</div>
+  <p>4-column grid with icon + heading + description. Used on About page ("What We Do" section).</p>
+
+  <div class="preview-block">
+    <div class="preview-stage preview-stage-col">
+      <div class="demo-feature-grid">
+        <div class="demo-feature-item">
+          <div class="demo-feature-icon">&#9881;</div>
+          <div class="demo-feature-title">AI and Data-Driven</div>
+          <div class="demo-feature-desc">We use the number database as the basis for fraud prevention and risk assessment.</div>
+        </div>
+        <div class="demo-feature-item">
+          <div class="demo-feature-icon">&#9776;</div>
+          <div class="demo-feature-title">Up-to-Date Database</div>
+          <div class="demo-feature-desc">We own the largest number database in East Asia and Southeast Asia.</div>
+        </div>
+        <div class="demo-feature-item">
+          <div class="demo-feature-icon">&#9673;</div>
+          <div class="demo-feature-title">Global Partnership</div>
+          <div class="demo-feature-desc">Strategic partnerships with governments and enterprises worldwide.</div>
+        </div>
+        <div class="demo-feature-item">
+          <div class="demo-feature-icon">&#10024;</div>
+          <div class="demo-feature-title">Constant Innovation</div>
+          <div class="demo-feature-desc">Independent R&D strengthening our risk management product portfolio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FORMS ======== -->
+<section class="sec" id="forms">
+  <div class="h2">Forms &amp; Inputs</div>
+  <p>Two input styles: underline (newsletter on blue bg) and boxed (contact page). Boxed inputs have <code>border-radius: 0</code>.</p>
+
+  <div class="h3">Underline Input (Newsletter)</div>
+  <div class="preview-block">
+    <div class="preview-stage preview-stage-blue preview-stage-col" style="gap:16px;">
+      <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:white;line-height:120%;">Stay Informed About the Latest in Trust Trends</div>
+      <div style="display:flex;gap:16px;align-items:end;width:100%;max-width:500px;">
+        <input type="email" class="demo-input-underline" placeholder="Email" style="flex:1;">
+        <button class="demo-btn demo-btn-white demo-btn-sm">Send <span>&rarr;</span></button>
+      </div>
+      <div class="demo-checkbox-wrap">
+        <div class="demo-checkbox-box demo-checkbox-checked"></div>
+        <div class="demo-checkbox-label" style="color:rgba(255,255,255,0.6);font-size:12px;">I agree to receive updates and have read the Privacy Policy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h3">Boxed Input (Contact Form)</div>
+  <div class="preview-block">
+    <div class="preview-stage preview-stage-col" style="gap:16px;max-width:400px;">
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <label style="font-size:12px;font-weight:600;color:var(--dark-blue);">Name</label>
+        <input type="text" class="demo-input-boxed" placeholder="Your name">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <label style="font-size:12px;font-weight:600;color:var(--dark-blue);">Email</label>
+        <input type="email" class="demo-input-boxed" placeholder="name@company.com">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <label style="font-size:12px;font-weight:600;color:var(--dark-blue);">Topic</label>
+        <select class="demo-input-boxed"><option>Select a topic</option><option>Business Inquiry</option><option>Partnership</option></select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== BADGES ======== -->
+<section class="sec" id="badges">
+  <div class="h2">Badges</div>
+  <div class="preview-block">
+    <div class="preview-stage">
+      <span class="demo-badge demo-badge-blue">Blue</span>
+      <span class="demo-badge demo-badge-green">Success</span>
+      <span class="demo-badge demo-badge-red">Error</span>
+      <span class="demo-badge demo-badge-dark">Dark</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======== CAROUSEL NAV ======== -->
+<section class="sec" id="carousel">
+  <div class="h2">Carousel Navigation</div>
+  <p>Used on milestones, partners, and testimonial carousels. Circle arrow buttons, outline or filled.</p>
+  <div class="preview-block">
+    <div class="preview-stage">
+      <div class="demo-carousel-nav">
+        <button class="demo-carousel-btn">&larr;</button>
+        <button class="demo-carousel-btn">&rarr;</button>
+      </div>
+      <div style="width:24px;"></div>
+      <div class="demo-carousel-nav">
+        <button class="demo-carousel-btn demo-carousel-btn-filled">&larr;</button>
+        <button class="demo-carousel-btn demo-carousel-btn-filled">&rarr;</button>
+      </div>
+      <div style="width:24px;"></div>
+      <span style="font-size:14px;font-weight:600;color:var(--slate);">1 / 4</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======== LOCALE TOGGLE ======== -->
+<section class="sec" id="locale">
+  <div class="h2">Locale Toggle</div>
+  <div class="preview-block">
+    <div class="preview-stage">
+      <div class="demo-locale">
+        <button class="demo-locale-btn demo-locale-btn-active">EN</button>
+        <button class="demo-locale-btn">中文</button>
+      </div>
+    </div>
+    <div class="preview-stage preview-stage-dark">
+      <div class="demo-locale">
+        <button class="demo-locale-btn" style="background:transparent;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);">EN</button>
+        <button class="demo-locale-btn" style="background:transparent;border-color:var(--white);color:var(--white);">中文</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== PARTNER CARDS ======== -->
+<section class="sec" id="partners">
+  <div class="h2">Partner Cards</div>
+  <div class="preview-block">
+    <div class="preview-stage" style="gap:20px;">
+      <div class="demo-partner-card" style="width:280px;">
+        <div class="demo-partner-name">National Police Agency, MOI</div>
+      </div>
+      <div class="demo-partner-card" style="width:280px;">
+        <div class="demo-partner-name">Taiwan Financial Supervisory Commission</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== LOGO BAR ======== -->
+<section class="sec" id="logos">
+  <div class="h2">Logo Bar</div>
+  <div class="preview-block">
+    <div class="preview-stage preview-stage-light">
+      <div class="demo-logo-bar" style="width:100%;">
+        <span class="demo-logo-item">ScamAdviser</span>
+        <span class="demo-logo-item">袋鼠金融</span>
+        <span class="demo-logo-item">美玉姨</span>
+        <span class="demo-logo-item">JUJI</span>
+        <span class="demo-logo-item">spotONE</span>
+        <span class="demo-logo-item">CallDefender</span>
+        <span class="demo-logo-item">Message Checker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<section class="sec" id="footer">
+  <div class="h2">Footer</div>
+  <p>Gogolook Blue (<code>#0058EA</code>) background. 3-column link grid with square social icons top-right. Giant translucent "Gogolook" watermark. Bottom bar: copyright, locale toggle, Privacy/Terms.</p>
+
+  <div class="h3">Desktop</div>
+  <div class="preview-block">
+    <div class="preview-stage" style="padding:0;">
+      <div class="demo-footer">
+        <div class="demo-footer-grid">
+          <div>
+            <div class="demo-footer-heading">Company</div>
+            <a class="demo-footer-link">About</a>
+            <a class="demo-footer-link">Newsroom</a>
+            <a class="demo-footer-link">Investors</a>
+            <a class="demo-footer-link">ESG</a>
+          </div>
+          <div>
+            <div class="demo-footer-heading">Products</div>
+            <a class="demo-footer-link">For Personal</a>
+            <a class="demo-footer-link">For Business</a>
+          </div>
+          <div>
+            <div class="demo-footer-heading">Contact</div>
+            <a class="demo-footer-link">Get in Touch</a>
+            <a class="demo-footer-link">Careers</a>
+          </div>
+          <div class="demo-footer-social">
+            <div class="demo-footer-social-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <div class="demo-footer-social-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="demo-footer-watermark">
+          <svg viewBox="0 0 1532.9 344.5" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1308.97,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.55,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.46,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M1242.95,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="currentColor"/>
+            <path d="M828.25,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M762.23,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="currentColor"/>
+            <path d="M1107.38,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M1041.37,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="currentColor"/>
+            <path d="M413.76,85.97l-.59-.59c-36.42-36.12-95.21-35.95-131.42.39-17.76,17.4-27.62,41.31-27.29,66.17-.27,24.84,9.56,48.72,27.22,66.18,16.86,17.74,40.26,27.79,64.73,27.82.45,0,.91,0,1.36-.01,24.8.28,48.61-9.7,65.79-27.58,17.84-17.43,27.77-41.4,27.46-66.34.28-24.81-9.56-48.65-27.27-66.03M347.74,206.11c-29.28,0-53.01-24.15-53.01-53.94s23.73-53.94,53.01-53.94,53.01,24.15,53.01,53.94-23.73,53.94-53.01,53.94" fill="currentColor"/>
+            <path d="M550.81,342.5c-21.66-.02-41.96-7.3-58.26-19.81s-28.59-30.23-34.21-51.15c-.27-1.02-.11-2.06.38-2.9s1.3-1.51,2.32-1.78c.16-.04.32-.08.49-.1s.33-.03.5-.03h35.55c.76,0,1.48.23,2.09.63s1.1.97,1.41,1.67c2.72,6.07,6.51,11.53,11.12,16.17,4.62,4.64,10.06,8.44,16.12,11.2,3.52,1.61,7.19,2.83,10.95,3.65s7.61,1.23,11.47,1.23c3.22-.01,6.42-.29,9.58-.83s6.28-1.33,9.32-2.38c9.63-3.27,18.44-10.47,24.88-19.47,6.45-9,10.53-19.78,10.72-30.21l.11-15.98-.74.49-.74.49c-21.95,14.59-47.74,18.9-71.69,14.08-23.95-4.82-46.06-18.79-60.65-40.74-14.59-21.95-18.9-47.74-14.08-71.69,4.82-23.95,18.79-46.06,40.74-60.65,21.95-14.59,47.74-18.9,71.69-14.08s46.06,18.79,60.65,40.74c5.2,7.83,9.19,16.34,11.88,25.24,2.69,8.9,4.08,18.2,4.08,27.6v94.51c-.45,26.1-11.31,49.62-28.59,66.62-17.28,17-40.97,27.47-67.08,27.49M551.01,99.55c-15,0-28.58,6.08-38.42,15.91-9.83,9.83-15.91,23.41-15.91,38.42s6.08,28.58,15.91,38.42c9.83,9.83,23.41,15.91,38.42,15.91s28.58-6.08,38.42-15.91c9.83-9.83,15.91-23.41,15.91-38.42h0c-.02-14.99-6.1-28.57-15.93-38.39-9.83-9.83-23.4-15.91-38.4-15.93" fill="currentColor"/>
+            <path d="M233.91,110.67c-23.06,0-50.54,0-73.6,0-1.97-.03-3.68,1.67-3.65,3.65,0,0,0,7.75,0,7.75v23.26c-.03,1.97,1.67,3.68,3.65,3.65,10.42,0,22.85,0,33.27,0-5.74,22.2-21.69,41.14-43.19,49.32h0c-60.23,21.79-113.99-28.88-102.66-90.39,9.57-55.29,73.79-82.23,119.21-48.88,2.75,2.11,5.35,4.41,7.77,6.89,2.68,2.58,4.82,6.63,9.07,6.45,5.04.02,15.28-.01,20.33,0,5.03.02,15.29-.01,20.33,0,2.67.07,4.51-2.99,3.24-5.33-2.29-4.51-4.85-8.85-7.67-13.02C188.62,6.81,128.64-10.63,76.51,10.99,6.26,40.71-20.11,127.99,21.98,191.6c31.9,48.33,92.51,67.11,146.18,45.83,43.52-17.67,70.6-63.57,69.39-110.12-.02-2.9.02-6.85,0-9.75.11-2.89.3-6.78-3.65-6.9Z" fill="currentColor"/>
+            <path d="M919.7,243.44h-35.73c-1.01,0-1.92-.41-2.58-1.07s-1.07-1.57-1.07-2.58V8.33c0-1.01.41-1.92,1.07-2.58.66-.66,1.57-1.07,2.58-1.07h35.73c1.01,0,1.92.41,2.58,1.07.66.66,1.07,1.57,1.07,2.58v231.46c0,1.01-.41,1.92-1.07,2.58s-1.57,1.07-2.58,1.07Z" fill="currentColor"/>
+            <path d="M1454.93,144.91l36.06-38.61,36.06-38.61c1.09-1.17,1.22-2.7.68-3.94s-1.75-2.19-3.34-2.19h-40.48c-1.02,0-2.01.21-2.93.61s-1.74.99-2.43,1.74l-36.94,40.05-36.94,40.05V8.34c0-1.01-.41-1.92-1.07-2.58-.66-.66-1.57-1.07-2.58-1.07h-35.73c-1.01,0-1.92.41-2.58,1.07s-1.07,1.57-1.07,2.58v231.46c0,1.01.41,1.92,1.07,2.58s1.57,1.07,2.58,1.07h35.73c1.01,0,1.92-.41,2.58-1.07s1.07-1.57,1.07-2.58v-40.89h0l11.77-12.56,11.77-12.56,26.42,33.44,26.42,33.44c.69.88,1.56,1.57,2.54,2.04s2.06.73,3.18.73h40.46c1.53,0,2.73-.89,3.29-2.08s.51-2.67-.46-3.87l-37.57-46.29-37.57-46.29Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="demo-footer-bottom">
+          <span>&copy; 2025 Gogolook. All Rights Reserved.</span>
+          <div class="demo-footer-bottom-center">
+            <div class="demo-locale">
+              <button class="demo-locale-btn" style="background:transparent;border-color:var(--white);color:var(--white);">EN</button>
+              <button class="demo-locale-btn" style="background:transparent;border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);">中文</button>
+            </div>
+          </div>
+          <div class="demo-footer-bottom-links">
+            <a>Privacy</a>
+            <a>Terms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guidelines-grid">
+    <div class="guideline-card"><div class="guideline-header guideline-do">DO</div><div class="guideline-body">Use Gogolook Blue (<code>#0058EA</code>) as footer background. Social icons are white squares with <code>border-radius: 6px</code>. Watermark uses Plus Jakarta Sans 800.</div></div>
+    <div class="guideline-card"><div class="guideline-header guideline-dont">DON'T</div><div class="guideline-body">Don't use Dark Blue or gradient backgrounds for the footer. Don't use circular social icons — they are rounded squares on the live site.</div></div>
+  </div>
+</section>
+
+<!-- ======== BREAKPOINTS ======== -->
+<section class="sec" id="breakpoints">
+  <div class="h2">Breakpoints</div>
+  <table class="token-table">
+    <thead><tr><th>Breakpoint</th><th>Max Width</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td>Desktop</td><td><code>&gt; 991px</code></td><td>Full layout, 90rem container</td></tr>
+      <tr><td>Tablet</td><td><code>&le; 991px</code></td><td>Container 728px, reduced font sizes</td></tr>
+      <tr><td>Mobile Landscape</td><td><code>&le; 767px</code></td><td>Single column, stacked layouts</td></tr>
+      <tr><td>Mobile Portrait</td><td><code>&le; 479px</code></td><td>Smallest layout, hamburger nav</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ======== ACCESSIBILITY ======== -->
+<section class="sec" id="accessibility">
+  <div class="h2">Accessibility</div>
+  <table class="token-table">
+    <thead><tr><th>Color Pair</th><th>Ratio</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>White on Blue (#0058EA)</td><td>4.6:1</td><td><span class="demo-badge demo-badge-green">AA Pass</span></td></tr>
+      <tr><td>White on Dark Blue (#0F2647)</td><td>13.5:1</td><td><span class="demo-badge demo-badge-green">AAA Pass</span></td></tr>
+      <tr><td>White on Light Blue (#008CF4)</td><td>3.1:1</td><td><span class="demo-badge demo-badge-blue">Large Only</span></td></tr>
+      <tr><td>White on Green (#01D3B8)</td><td>2.8:1</td><td><span class="demo-badge demo-badge-red">Fail</span></td></tr>
+      <tr><td>Blue on White</td><td>4.6:1</td><td><span class="demo-badge demo-badge-green">AA Pass</span></td></tr>
+    </tbody>
+  </table>
+  <div class="guidelines-grid">
+    <div class="guideline-card"><div class="guideline-header guideline-do">DO</div><div class="guideline-body">Use Blue or Dark Blue for text on white. Use white text on Blue or Dark Blue backgrounds. Green is safe for large headings on gradient backgrounds.</div></div>
+    <div class="guideline-card"><div class="guideline-header guideline-dont">DON'T</div><div class="guideline-body">Never use Green (#01D3B8) as body text color on white. Never use Light Blue (#008CF4) for small text on white.</div></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+var passwords = ['gogolook2026', '1234'];
+var gate = document.getElementById('loginGate');
+var input = document.getElementById('loginInput');
+var btn = document.getElementById('loginBtn');
+var error = document.getElementById('loginError');
+
+function tryLogin() {
+  if (passwords.indexOf(input.value.toLowerCase()) !== -1) {
+    gate.classList.add('hidden');
+    document.body.classList.remove('locked');
+    try { sessionStorage.setItem('gl-ds-auth', '1'); } catch(e) {}
+  } else {
+    error.textContent = 'Incorrect password';
+    input.value = '';
+    input.focus();
+  }
+}
+btn.addEventListener('click', tryLogin);
+input.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryLogin(); });
+try { if (sessionStorage.getItem('gl-ds-auth') === '1') { gate.classList.add('hidden'); document.body.classList.remove('locked'); } } catch(e) {}
+
+var tocLinks = document.querySelectorAll('.toc a');
+var sections = document.querySelectorAll('.sec');
+function updateToc() {
+  var scrollY = window.scrollY + 100;
+  var current = '';
+  sections.forEach(function(s) { if (s.offsetTop <= scrollY) current = s.id; });
+  tocLinks.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+}
+window.addEventListener('scroll', updateToc);
+updateToc();
+
+var toggle = document.getElementById('mobileToggle');
+var sidebar = document.getElementById('sidebar');
+var overlay = document.getElementById('mobileOverlay');
+toggle.addEventListener('click', function() { sidebar.classList.toggle('open'); overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none'; });
+overlay.addEventListener('click', function() { sidebar.classList.remove('open'); overlay.style.display = 'none'; });
+tocLinks.forEach(function(a) { a.addEventListener('click', function() { if (window.innerWidth <= 1024) { sidebar.classList.remove('open'); overlay.style.display = 'none'; } }); });
+</script>
+</body>
+</html>
