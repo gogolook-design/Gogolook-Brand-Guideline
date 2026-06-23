@@ -207,6 +207,16 @@ body.locked { overflow: hidden; }
   margin-top: auto; padding-top: 20px;
   font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.85); letter-spacing: 0.02em; line-height: 1.6;
 }
+.sb-crossnav {
+  display: flex; gap: 16px; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.sb-crossnav-link {
+  font-size: 12px; font-weight: 600; text-decoration: none;
+  color: rgba(255,255,255,0.45); transition: color 0.2s;
+}
+.sb-crossnav-link:hover { color: rgba(255,255,255,0.8); }
+.sb-crossnav-active { color: var(--white); }
 
 /* ============================================================
    MAIN CONTENT
@@ -485,6 +495,10 @@ p { margin: 0 0 16px; color: var(--gray-700); max-width: 65ch; font-weight: 500;
 
 <!-- ============ SIDEBAR ============ -->
 <nav class="sidebar" id="sidebar">
+  <div class="sb-crossnav">
+    <a href="index.html" class="sb-crossnav-link sb-crossnav-active">品牌指南 Brand</a>
+    <a href="design-system.html" class="sb-crossnav-link">設計系統 DS</a>
+  </div>
   <div class="sb-logo">Gogolook</div>
   <div class="sb-sub">Brand Design Guidelines</div>
 
